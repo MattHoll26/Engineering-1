@@ -39,12 +39,12 @@ public class WorldRenderer extends ApplicationAdapter {
         camera.setToOrtho(false, MAP_WIDTH, MAP_HEIGHT);
         camera.update();
 
-        tiledMap = new TmxMapLoader().load("Tile Maps/Game Map.tmx");
+        tiledMap = new TmxMapLoader().load("Tile Maps/Game Map Maze Version.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         viewport = new FitViewport(MAP_WIDTH, MAP_HEIGHT, camera);
 
         batch = new SpriteBatch();
-        player = new Player(320,320);
+        player = new Player(145,120); //damn son
     }
 
     private void handleInput() 
