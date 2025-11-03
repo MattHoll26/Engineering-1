@@ -1,0 +1,10 @@
+@startgantt
+'7th October
+[Customer Meeting] lasts 1 days and is colored in Lavender/Blue
+'8th October to 15th October (Week3)
+[Documenting Customer Requirements] lasts 7 days and is colored in DarkGreen and starts 0 days after [Customer Meeting]'s end
+'15th October to 20th October (Week4)
+
+'2nd November (WeekR)
+
+@endgantt
