@@ -37,7 +37,7 @@
   <image source="../chest_01.png" width="64" height="16"/>
  </tileset>
  <tileset firstgid="506" name="NPc" tilewidth="16" tileheight="16" tilecount="1" columns="1">
-  <image source="../player.png" width="16" height="16"/>
+  <image source="../Player-front.png" width="16" height="16"/>
  </tileset>
  <tileset firstgid="547" name="room builder" tilewidth="16" tileheight="16" tilecount="391" columns="17">
   <image source="../Room_Builder_free_16x16.png" width="272" height="368"/>

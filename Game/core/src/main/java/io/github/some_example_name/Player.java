@@ -29,7 +29,7 @@ public class Player
         position = new Vector2(x, y);
 
         // loading sprite under diff positions
-        frontTexture = new Texture("Player.png"); 
+        frontTexture = new Texture("Player-front.png"); 
         backTexture = new Texture("Player-back.png");
         sideTexture= new Texture ("Player-side.png");
 
