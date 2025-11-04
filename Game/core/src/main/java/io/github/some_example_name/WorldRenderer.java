@@ -11,11 +11,12 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+/**
+ * <code> WorldRenderer </code> handles drawing and updating of all the 
+ * graphics for the game, including the tile map for the actual world, 
+ * and a set of given sprites characters, and moving the sprites appropriately. 
+ */
 public class WorldRenderer extends ApplicationAdapter {
-    /*
-     * <code> WorldRenderer </code> handles drawing all the graphics for the game, like a tile map for the actual world, 
-     * and a set of given sprites characters and objects, to a fit-viewport.
-     */
     TiledMap tiledMap;
     OrthogonalTiledMapRenderer mapRenderer;
     OrthographicCamera camera;
@@ -27,14 +28,19 @@ public class WorldRenderer extends ApplicationAdapter {
     private int MAP_HEIGHT = 640;
     private int MAP_WIDTH = 640;
 
+    /** 
+     * Called immediately after window is created, to instantiate the renderers 
+     * used to draw the different assets to the game including: 
+     * <ul>
+     * <li> The games camera and viewport. </li>
+     * <li> The background tilemap. </li>
+     * <li> The sprite for the player. </li>
+     * </ul>
+     * @see {@link com.badlogic.gdx.ApplicationAdapter}
+     */
     @Override
     public void create() 
     {
-        /* 
-         * Instantiate all the objects needed for rendering the TileMap.
-         * No parameters or returns. 
-         */
-
         camera = new OrthographicCamera();
         camera.setToOrtho(false, MAP_WIDTH, MAP_HEIGHT);
         camera.update();
@@ -44,19 +50,21 @@ public class WorldRenderer extends ApplicationAdapter {
         viewport = new FitViewport(MAP_WIDTH, MAP_HEIGHT, camera);
 
         batch = new SpriteBatch();
-        player = new Player(145,120); //damn son
+        player = new Player(145,120); 
     }
 
+    /** 
+     * Handle how the player is moved when the input to the window changes, 
+     * including checks if the player can move to the tile they are 
+     * attempting to move into.  
+     * @see {@link com.badlogic.gdx.input.isKeyPressed}
+     */
     private void handleInput() 
     {
-        float moveSpeed = 150f; // this is in pixels per sec
+        float moveSpeed = 150f; 
 
         float newX = player.getPosition().x;
         float newY = player.getPosition().y;
-
-        /*
-         * WASD movement yippeeee
-         */
 
         if (Gdx.input.isKeyPressed(Input.Keys.W))
         {
@@ -88,29 +96,32 @@ public class WorldRenderer extends ApplicationAdapter {
         }
     }
 
+    /** 
+     * Checks if the cell with the given coordinates can be traversed onto by
+     * the player.  
+     * @param x absolute position of tile horizontally. 
+     * @param y absolute position of tile vertically. 
+     * @return True/False if the given cell is blocked. 
+     */
     private boolean isCellBlocked(float x, float y)
     {
         for (int i = 0; i < tiledMap.getLayers().getCount(); i++) {
             if (tiledMap.getLayers().get(i) instanceof TiledMapTileLayer) {
                 TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get(i);
                 
-                // Convert pixel coordinates to tile coordinates for the player's center
                 int tileX = (int) ((x + 8) / layer.getTileWidth());
                 int tileY = (int) ((y + 8) / layer.getTileHeight());
 
                 TiledMapTileLayer.Cell cell = layer.getCell(tileX, tileY);
 
-                // If the cell is empty, it can't be blocked, so we skip to the next layer.
                 if (cell == null || cell.getTile() == null) {
                     continue;
                 }
 
-                // Collidable property checker for a specific tile (in the future maybe)
                 if (cell.getTile().getProperties().containsKey("collidable")) {
                     return true; 
                 }
 
-                // Collidable property checker for a specific layer
                 if (layer.getProperties().containsKey("collidable")) {
                     return true; 
                 }
@@ -118,15 +129,18 @@ public class WorldRenderer extends ApplicationAdapter {
         }
         return false; 
     }
-
+	
+    /**
+     * Called at the end of every frame when the application is in focus,
+     * to re-render all assets on display, and refit the game to the new 
+     * viewport, if the window size has changed.
+     * @see {@link com.badlogic.gdx.ApplicationAdapter}
+     * @see {@link com.badlogic.gdx.FitViewport}
+     */
     @Override
     public void render() 
     {
-        /*
-         * Clear screen and re-render all sprites + graphics.
-         */
-
-         handleInput();
+        handleInput();
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -140,6 +154,10 @@ public class WorldRenderer extends ApplicationAdapter {
         batch.end();
     } 
 
+    /** 
+     * Called after the window is closed, to ensure all rendering assets are 
+     * dispoed of.
+     */
     @Override
     public void dispose()
     {

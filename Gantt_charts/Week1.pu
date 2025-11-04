@@ -1,0 +1,5 @@
+@startgantt
+'Week1
+[Discussing methods and worklfows] lasts 7 days and is colored in lavendar/LightBlue
+[Meeting 1] lasts 1 days and starts after [Discussing methods and worklfows]'s start
+@endgantt

@@ -1,5 +1,6 @@
 # 2025-26-Engineering-1-
 
-# To-Do:
-- [ ] Add FUNCTIONAL Maze
-- [ ] Create Website (Zoey Ahmed)
+Game for Cohort 2, Group 1.
+
+# Documentation:
+Documentation is done in the style of Javadoc.
