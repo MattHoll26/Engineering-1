@@ -11,10 +11,15 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.math.Vector2;
 
 public class GameScreen implements Screen {
     private final MyGame game;
@@ -26,6 +31,11 @@ public class GameScreen implements Screen {
 
     private SpriteBatch batch;
     private Player player;
+
+	private final Stage uiStage;
+	private final Table uiTable;
+	private final Skin uiSkin;
+	private final GameTimer gameTimer;
 
     private BusTicket busTicket;
     private BitmapFont font;
@@ -65,6 +75,16 @@ public class GameScreen implements Screen {
         if (busObject != null && busObject instanceof RectangleMapObject) {
             this.busInteractionArea = ((RectangleMapObject) busObject).getRectangle();
         }
+	
+	uiSkin = new Skin(Gdx.files.internal("ui/uiskin.json"));
+	uiStage = new Stage(new FitViewport(MAP_WIDTH, MAP_HEIGHT));	 
+	uiTable = new Table();
+	uiTable.setFillParent(true);
+	uiStage.addActor(uiTable);
+	gameTimer = new GameTimer(uiSkin, uiTable);
+	uiTable.top();
+	uiTable.right();
+	uiTable.pad(10,0,0,10);
     }
 
     @Override
@@ -73,6 +93,7 @@ public class GameScreen implements Screen {
 
         Gdx.gl.glClearColor(0, 0, 0, 1); // Clear screen to black
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 
         if (busTicket != null) {
             if (!busTicket.isCollected()) {
@@ -127,6 +148,14 @@ public class GameScreen implements Screen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             game.setScreen(new MenuScreen(game));
         }
+
+	gameTimer.decrementTimer(Gdx.graphics.getRawDeltaTime());
+	if (gameTimer.getTimeLeft() == 0) { 
+		gameTimer.onTimeUp();
+            	game.setScreen(new MenuScreen(game));
+	}
+	uiStage.act(Gdx.graphics.getRawDeltaTime());
+	uiStage.draw();
     }
 
     private void handleInput() {
@@ -185,7 +214,10 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
+		uiStage.getViewport().update(width, height, true);
+		uiStage.getViewport().apply();
         viewport.update(width, height);
+		viewport.apply();
     }
 
     @Override
@@ -198,6 +230,7 @@ public class GameScreen implements Screen {
             busTicket.dispose();
         }
         font.dispose();
+		uiStage.dispose();
     }
 
     @Override

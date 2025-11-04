@@ -52,7 +52,7 @@ public class Player
 
 	/** 
 	 * Called to set the direction of the Player sprite.
-	 * @param newDirection the  
+	 * @param newDirection the direction the player should face. 
 	 * @see Direction
 	 */
 	public void setDirection(Direction newDirection)
@@ -83,7 +83,9 @@ public class Player
 	}
 
 	/**
-	 * Convenience function to be called by application SpriteBatch renderer to 
+	 * Convenience method to be called by the game screen's <code> render() 
+	 * </code> method, to draw the player using its SpriteBatch at the 
+	 * players current coordinates. 
 	 * render the players sprite. 
 	 * @param batch SpriteBatch used by application to render all sprites.  
 	 * @see SpriteBatch
@@ -95,7 +97,8 @@ public class Player
 	}
 
 	/**
-	 * Getter function for player's position. 
+	 * Get the player's position. 
+	 * @return The players x-by-y coordinates as a 2D vector.
 	 */
 	public Vector2 getPosition() 
 	{
@@ -103,7 +106,7 @@ public class Player
 	}
 
 	/**
-	 * Convenience function to be called by application to dispose of textures 
+	 * Convenience method to be called by application to dispose of textures 
 	 * of player's sprites when the application's dispose method is called. 
 	 * @see ApplicationAdapter 
 	 */
