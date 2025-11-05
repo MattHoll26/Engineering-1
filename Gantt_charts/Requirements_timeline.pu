@@ -4,7 +4,9 @@
 '8th October to 15th October (Week3)
 [Documenting Customer Requirements] lasts 7 days and is colored in DarkGreen and starts 0 days after [Customer Meeting]'s end
 '15th October to 20th October (Week4)
-
+[adding hiearchy to Requirements] lasts 5 days and is colored in DarkOrange and starts 0 days after [Documenting Customer Requirements]'s end
 '2nd November (WeekR)
+[Revision of Requirements] lasts 1 days and is colored in Red and starts 13 days after [adding hiearchy to Requirements]'s end
+'5th November to 11th November (Week6)
 
 @endgantt

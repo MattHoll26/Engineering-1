@@ -1,8 +1,9 @@
 @startgantt
 '14th - 19th October
-
+[Discussing Architecture Layouts, pipelines,...] lasts 3 days and is colored in Lavender/Blue
+[doccument ideas for diagrams] lasts 4 days and starts 0 days after [Discussing Architecture Layouts, pipelines,...]'s end
 '20th - 23rd October
-
+[forming diagrams and architecture structure] lasts 4 days and starts 0 days after [doccument ideas for diagrams]'s end
 '29th October - 2nd November 
-
+[doccumenting architecture and diagrams] lasts 5 days and starts 3 days after [forming diagrams and architecture structure]'s end
 @endgantt
