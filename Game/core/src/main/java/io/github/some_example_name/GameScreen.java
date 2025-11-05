@@ -138,8 +138,17 @@ public class GameScreen implements Screen {
 			    canPickUpTicket = false;
 			}
 		    } else {
-			Rectangle playerRect = new Rectangle(player.getPosition().x, player.getPosition().y, 16, 16);
-			if (busInteractionArea != null && playerRect.overlaps(busInteractionArea)) {
+			Rectangle playerRect = new Rectangle(
+				player.getPosition().x, 
+				player.getPosition().y, 
+				16, 
+				16
+			);
+
+			if (
+				busInteractionArea != null && 
+				playerRect.overlaps(busInteractionArea)
+			) {
 			    canEndGame = true;
 			} else {
 			    canEndGame = false;
@@ -161,11 +170,21 @@ public class GameScreen implements Screen {
 		}
 
 		if (canPickUpTicket) {
-		    font.draw(batch, "Press E to pick up", player.getPosition().x - 50, player.getPosition().y + 30);
+		    font.draw(
+			batch, 
+			"Press E to pick up", 
+			player.getPosition().x - 50, 
+			player.getPosition().y + 30
+		   );
 		}
 
 		if (canEndGame) {
-		    font.draw(batch, "Press E to use ticket", player.getPosition().x - 50, player.getPosition().y + 30);
+		    font.draw(
+			batch, 
+			"Press E to use ticket", 
+			player.getPosition().x - 50, 
+			player.getPosition().y + 30
+		    );
 		}
 			
 		// Messages will appear on top by rendering player last. 
@@ -175,19 +194,19 @@ public class GameScreen implements Screen {
 		player.render(batch);
 
 		if (busTicket != null && busTicket.isCollected()) {
-		    busTicket.renderAsIcon(batch, camera);
+			busTicket.renderAsIcon(batch, camera);
 		}
 
 		batch.end();
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-		    game.setScreen(new MenuScreen(game));
+			game.setScreen(new MenuScreen(game));
 		}
 
 		gameTimer.decrementTimer(delta);
 		if (gameTimer.getTimeLeft() == 0) { 
-		    gameTimer.onTimeUp();
-			    game.setScreen(new MenuScreen(game));
+			gameTimer.onTimeUp();
+			game.setScreen(new MenuScreen(game));
 		}
 		uiStage.act(delta);
 		uiStage.draw();
@@ -214,26 +233,19 @@ public class GameScreen implements Screen {
 		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 		    newY += moveSpeed;
 		    player.setDirection(Player.Direction.UP);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+		} else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
 		    newY -= moveSpeed;
 		    player.setDirection(Player.Direction.DOWN);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+		} else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
 		    newX -= moveSpeed;
 		    player.setDirection(Player.Direction.LEFT);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+		} else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
 		    newX += moveSpeed;
 		    player.setDirection(Player.Direction.RIGHT);
-		}
-
-		if (canPickUpTicket && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+		} else if (canPickUpTicket && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
 		    busTicket.collect();
 		    canPickUpTicket = false; 
-		}
-
-		if (canEndGame && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+		} else if (canEndGame && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
 		    game.setScreen(new WinScreen(game));
 		}
 
@@ -294,15 +306,13 @@ public class GameScreen implements Screen {
 		mapRenderer.dispose();
 		batch.dispose();
 		player.dispose();
-		if (busTicket != null) {
-		    busTicket.dispose();
-		}
 		locker.dispose();
 		font.dispose();
-			uiStage.dispose();
+		uiStage.dispose();
 		dean.dispose();
 		catchCounterFont.dispose();
 		friend.dispose();
+		if (busTicket != null) { busTicket.dispose(); }
 	}
 
 	/** Unimplemented */

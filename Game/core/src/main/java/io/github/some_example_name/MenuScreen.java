@@ -71,8 +71,7 @@ public class MenuScreen implements Screen {
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 		    game.setScreen(new GameScreen(game));
-		}
-		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+		} else if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 		    Gdx.app.exit();
 		}
 	}

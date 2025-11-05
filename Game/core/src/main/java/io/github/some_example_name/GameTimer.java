@@ -31,7 +31,9 @@ public class GameTimer {
 	 */ 
 	public GameTimer(Skin skin, Table table) {
 		this.timeLeft = 300f;	
-		this.timerDingSFX = Gdx.audio.newSound(Gdx.files.internal("ding.wav"));
+		this.timerDingSFX = Gdx.audio.newSound(
+			Gdx.files.internal("ding.wav")
+		);
 		instantiateLabel(skin,table);
 	}
 
@@ -45,7 +47,9 @@ public class GameTimer {
 	public GameTimer(Skin skin, Table table, float seconds) {
 		this.timeLeft = seconds;	
 
-		this.timerDingSFX = Gdx.audio.newSound(Gdx.files.internal("ding.wav"));
+		this.timerDingSFX = Gdx.audio.newSound(
+			Gdx.files.internal("ding.wav")
+		);
 		instantiateLabel(skin,table);
 	} 
 
