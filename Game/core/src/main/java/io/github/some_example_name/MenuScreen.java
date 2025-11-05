@@ -51,7 +51,7 @@ public class MenuScreen implements Screen {
 	public void show() {}
 
 	/**
-	 * Render new frame for the main menu. 
+	 * Process input then render new frame for the main menu. 
 	 * @param delta Time in seconds since last frame finished rendering.
 	 * @see {@link com.badlogic.gdx.Screen#render} Screen.render().
 	 */
