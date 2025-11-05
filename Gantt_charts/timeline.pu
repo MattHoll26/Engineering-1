@@ -1,30 +1,69 @@
 @startgantt
-'25th September - 1st October (Week1)
+'24th September - 1st October (Week1)
 [Discussing methods and worklfows] lasts 7 days and is colored in lavendar/LightBlue
 [Meeting 1] lasts 1 days and is colored in Lavender/Blue
 [Customer Meeting] lasts 1 days and starts 5 days after [Meeting 1]'s end
 
+
+
+
 '1st - 8th October (Week2)
 [Meeting 2] lasts 1 days and starts 6 days after [Meeting 1]'s end
+
 [agreeing on chosen method and workflow] lasts 1 days and is colored in Coral/Green and starts 0 days after [Discussing methods and worklfows]'s end
 [documenting Scrum and CI/CD] lasts 5 days and starts at [agreeing on chosen method and workflow]'s end
 [Revision on decision] lasts 1 days and starts after [documenting Scrum and CI/CD]'s end
+[Documenting Customer Requirements] lasts 7 days and is colored in DarkGreen and starts 0 days after [Customer Meeting]'s end
+
+[Discussing architectire layouts, pipelines,...] lasts 3 days and is colored in Lavender/Blue and starts 11 days after [Meeting 1]'s end
+
 
 '8th - 15th October (Week3)
+
+[Doccumenting ideas for diagrams] lasts 4 days and starts 0 days after [Discussing architectire layouts, pipelines,...]'s end
+[forming diagrams] lasts 4 days and starts 0 days after [Doccumenting ideas for diagrams]'s end
+[doccumenting architecture and diagrams] lasts 5 days and starts 3 days after [forming diagrams]'s end
+
 [Meeting 3] lasts 1 days and starts 6 days after [Meeting 2]'s end
 [forming a backlog and sprint planning] lasts 3 days and starts after [documenting Scrum and CI/CD]'s end
 [Sprint meeting 1] lasts 1 days and starts after [forming a backlog and sprint planning]'s end
+
 [Sprint backlog tasks] lasts 4 days and starts after [Sprint meeting 1]'s end
+
+[adding hiearchy to Requirements] lasts 5 days and is colored in DarkOrange and starts 0 days after [Documenting Customer Requirements]'s end
+
 
 '15th - 22nd October (Week4)
 [Meeting 4] lasts 1 days and starts 6 days after [Meeting 3]'s end
 
-'22nd October - 4th November (Week5&R)
+[map and character design] lasts 2 days and is colored in Grey/Lavender and starts 0 days after [Meeting 4]'s end
+
+
+
+'22nd October - 5th November (Week5&R)
+
+
+[IMPLEMENTATION PHASE] lasts 21 days and starts 2 days after [map and character design]'s end
+[PlayTesting] lasts 20 days and starts 1 days after [IMPLEMENTATION PHASE]'s start
+[Revision of Requirements] lasts 1 days and is colored in Red and starts 13 days after [adding hiearchy to Requirements]'s end
+
 [Meeting 5] lasts 1 days and starts 6 days after [Meeting 4]'s end
-[IMPLEMENTATION PHASE] lasts 14 days and starts after [Meeting 5]'s start
-[PlayTesting] lasts 13 days and starts 1 days after [IMPLEMENTATION PHASE]'s start
+
+
+'[doccumenting architecture and diagrams] lasts 5 days and starts 3 days after [forming diagrams]'s end
+
+
 
 '5th - 11th November (Week6)
 [Meeting 6] lasts 1 days and starts 13 days after [Meeting 5]'s end
+[Final Revisions and Deployment] lasts 5 days and starts after [Meeting 6]'s end
+
+
+
+
+
+'11th - 12th November (End of Assessment part 1)
+[Meeting 7] lasts 1 days and starts 6 days after [Meeting 6]'s end
+
 
 @endgantt
