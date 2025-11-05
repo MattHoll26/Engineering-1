@@ -50,6 +50,8 @@ public class GameScreen implements Screen {
     private int timesCaughtByDean = 0;
     private BitmapFont catchCounterFont;
 
+    private NPC friend; //the NPC that talks to the player
+
     public GameScreen(MyGame game) {
         this.game = game;
 
@@ -67,6 +69,7 @@ public class GameScreen implements Screen {
         player = new Player(145, 70); //the player's starting position in their accommodation
         locker = new Locker(495, 575); //the locker's position in the computer science building on the map
         dean = new Dean(390, 400, player, this); //dean positioned somewhere walkable within the map
+        friend = new NPC(560, 300); //npc positioned in the classroom
 
         catchCounterFont = new BitmapFont();
         catchCounterFont.getData().setScale(1.5f); //get's the fon'ts internal data and scales it to 150% of its original size
@@ -101,6 +104,9 @@ public class GameScreen implements Screen {
         
         handleInput();
 
+        //update the NPC 'friend'
+        friend.update(player);
+        
         //update the dean
         dean.update(delta);
 
@@ -110,7 +116,7 @@ public class GameScreen implements Screen {
             timesCaughtByDean ++;
         }
 
-        //updat the locker logic with the message and boost timer, update each fram to constantly check for a key press of e
+        //update the locker logic with the message and boost timer, update each fram to constantly check for a key press of e
         locker.update(player, delta);
 
         if (busTicket != null) {
@@ -157,11 +163,11 @@ public class GameScreen implements Screen {
 
         locker.render(batch); //this will draw the locker and the message before drawing the player -> the message will appear on top
         dean.render(batch);
+        friend.render(batch);
         player.render(batch);
 
         //display the catch counter
         //not added but potential future feature -> catchCounterFont.draw(batch, "Caught: " + timesCaughtByDean, camera.position.x - 150, camera.position.y + 100);
-
 
         if (busTicket != null && busTicket.isCollected()) {
             busTicket.renderAsIcon(batch, camera);
@@ -263,6 +269,7 @@ public class GameScreen implements Screen {
 		uiStage.dispose();
         dean.dispose();
         catchCounterFont.dispose();
+        friend.dispose();
     }
 
     @Override

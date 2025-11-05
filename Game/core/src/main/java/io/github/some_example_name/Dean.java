@@ -10,7 +10,7 @@ public class Dean {
     private Texture texture;
     private Player player;
     private GameScreen gameScreen;
-    private float speed = 0.5f; //slightly slower than the player to give a fair chance
+    private float speed = 0.7f; //slightly slower than the player to give a fair chance
 
     public Dean(float x, float y, Player player, GameScreen gameScreen){
         this.position = new Vector2(x, y);
@@ -27,7 +27,6 @@ public class Dean {
         //Dean try to move towards the player diagonally -> use deltra for smooth movement
         float newX = position.x + direction.x * speed; //horizontal
         float newY = position.y + direction.y * speed; //vertical
-
 
         //use GameScreen's collision detection
         if(!gameScreen.isCellBlocked(newX, newY)) {
@@ -58,13 +57,15 @@ public class Dean {
         batch.draw(texture, position.x, position.y, 16, 16); //this means show the dean at his location and make sure he is 16x16 pixels
     } 
 
+    /**
+     * creates a collision rectangle for the dean
+     */
     public Vector2 getPosition() {
         return position;
     }
 
     public Rectangle getBounds() {
         return new Rectangle(position.x, position.y, 16,16);
-
     }
 
     public void dispose() {
