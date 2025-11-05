@@ -46,6 +46,10 @@ public class GameScreen implements Screen {
     private final int MAP_WIDTH = 640;
     private final int MAP_HEIGHT = 640;
 
+    private Dean dean;
+    private int timesCaughtByDean = 0;
+    private BitmapFont catchCounterFont;
+
     public GameScreen(MyGame game) {
         this.game = game;
 
@@ -62,8 +66,10 @@ public class GameScreen implements Screen {
         batch = new SpriteBatch();
         player = new Player(145, 70); //the player's starting position in their accommodation
         locker = new Locker(495, 575); //the locker's position in the computer science building on the map
+        dean = new Dean(390, 400, player, this); //dean positioned somewhere walkable within the map
 
-
+        catchCounterFont = new BitmapFont();
+        catchCounterFont.getData().setScale(1.5f); //get's the fon'ts internal data and scales it to 150% of its original size
         font = new BitmapFont();
         
         MapObject ticketObject = tiledMap.getLayers().get("Events").getObjects().get("BusTicket");
@@ -90,14 +96,22 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0, 0, 0, 1); //clear the screen to black
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
         handleInput();
+
+        //update the dean
+        dean.update(delta);
+
+        //each time the dean is updated check if there has been a collision with the player
+        if (player.getPosition().dst(dean.getPosition()) < 16f) { //this line checks whether the player and dean are close enough to collide (less than 16 units apart)
+            player.getPosition().set(145,70); //puts the player back to their acccommodation coords
+            timesCaughtByDean ++;
+        }
 
         //updat the locker logic with the message and boost timer, update each fram to constantly check for a key press of e
         locker.update(player, delta);
-
-        Gdx.gl.glClearColor(0, 0, 0, 1); //clear the screen to black
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
 
         if (busTicket != null) {
             if (!busTicket.isCollected()) {
@@ -142,7 +156,12 @@ public class GameScreen implements Screen {
         }
 
         locker.render(batch); //this will draw the locker and the message before drawing the player -> the message will appear on top
+        dean.render(batch);
         player.render(batch);
+
+        //display the catch counter
+        //not added but potential future feature -> catchCounterFont.draw(batch, "Caught: " + timesCaughtByDean, camera.position.x - 150, camera.position.y + 100);
+
 
         if (busTicket != null && busTicket.isCollected()) {
             busTicket.renderAsIcon(batch, camera);
@@ -154,13 +173,13 @@ public class GameScreen implements Screen {
             game.setScreen(new MenuScreen(game));
         }
 
-	gameTimer.decrementTimer(Gdx.graphics.getRawDeltaTime());
-	if (gameTimer.getTimeLeft() == 0) { 
-		gameTimer.onTimeUp();
-            	game.setScreen(new MenuScreen(game));
-	}
-	uiStage.act(Gdx.graphics.getRawDeltaTime());
-	uiStage.draw();
+        gameTimer.decrementTimer(Gdx.graphics.getRawDeltaTime());
+        if (gameTimer.getTimeLeft() == 0) { 
+            gameTimer.onTimeUp();
+                    game.setScreen(new MenuScreen(game));
+        }
+        uiStage.act(Gdx.graphics.getRawDeltaTime());
+        uiStage.draw();
     }
 
     private void handleInput() {
@@ -192,7 +211,7 @@ public class GameScreen implements Screen {
 
         if (canPickUpTicket && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             busTicket.collect();
-            canPickUpTicket = false; // Prevent picking it up again
+            canPickUpTicket = false; //prevents picking the bus ticket up again
         }
 
         if (canEndGame && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
@@ -204,7 +223,7 @@ public class GameScreen implements Screen {
         }
     }
 
-    private boolean isCellBlocked(float x, float y) {
+    public boolean isCellBlocked(float x, float y) {
         for (int i = 0; i < tiledMap.getLayers().getCount(); i++) {
             if (tiledMap.getLayers().get(i) instanceof TiledMapTileLayer) {
                 TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get(i);
@@ -242,6 +261,8 @@ public class GameScreen implements Screen {
         locker.dispose();
         font.dispose();
 		uiStage.dispose();
+        dean.dispose();
+        catchCounterFont.dispose();
     }
 
     @Override
