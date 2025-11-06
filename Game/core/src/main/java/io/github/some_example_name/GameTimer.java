@@ -18,7 +18,6 @@ import com.badlogic.gdx.audio.Sound;
  *
  * @since 2025-11-04 19:28:26
  */
-
 public class GameTimer {
 	
 	private Float timeLeft;
@@ -32,7 +31,9 @@ public class GameTimer {
 	 */ 
 	public GameTimer(Skin skin, Table table) {
 		this.timeLeft = 300f;	
-		this.timerDingSFX = Gdx.audio.newSound(Gdx.files.internal("ding.wav"));
+		this.timerDingSFX = Gdx.audio.newSound(
+			Gdx.files.internal("ding.wav")
+		);
 		instantiateLabel(skin,table);
 	}
 
@@ -41,19 +42,21 @@ public class GameTimer {
 	 * @param skin Skin containing style for the timer label. 
 	 * @param table Table displaying timer widget. 
 	 * @param seconds Time in seconds to be counted by timer. 
-	 * @see {@link com.badlogic.gdx.scenes.scene2d.ui.Skin} Skin 
+	 * @see com.badlogic.gdx.scenes.scene2d.ui.Skin Skin 
 	 */
 	public GameTimer(Skin skin, Table table, float seconds) {
 		this.timeLeft = seconds;	
 
-		this.timerDingSFX = Gdx.audio.newSound(Gdx.files.internal("ding.wav"));
+		this.timerDingSFX = Gdx.audio.newSound(
+			Gdx.files.internal("ding.wav")
+		);
 		instantiateLabel(skin,table);
 	} 
 
 	
 	/**
- 	 * Return the time in formatted in mm:ss for time left.  
- 	 * @return String formatted in mm:ss of <code> timeLeft </code>.
+ 	 * Return the time in formatted in mm:ss for time left. 
+ 	 * @return String formatted in mm:ss of time left.
 	 */
 	@Override 
 	public String toString() { 	
@@ -65,7 +68,7 @@ public class GameTimer {
 	/**
 	 * Decrements timer by given value, or to 0 if the new value will be a 
 	 * negative number. 
-	 * @param decrementaion Value to reduce the timer by, in seconds, ideally sourced from {@see Gdx.graphics.getRawDeltaTime()}.
+	 * @param decrementaion Value to reduce the timer by, in seconds, ideally sourced from {@link com.badlogic.gdx.Graphics#getRawDeltaTime()}.
 	 */
 	public void decrementTimer(float decrementaion) {
 		this.timeLeft = Math.max(0, timeLeft - decrementaion);	
@@ -75,7 +78,6 @@ public class GameTimer {
 	/**
 	 * Called when the time reaches 0, to play finishing sound and 
 	 * change to game over screen. 	
-	 * @param 
 	 */
 	public void onTimeUp() { 
 		this.timerDingSFX.play(3f); 
@@ -106,5 +108,4 @@ public class GameTimer {
 		this.timerLabel = new Label("", skin);
 		table.add(this.timerLabel).row();
 	}
-
 }

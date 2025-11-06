@@ -15,6 +15,7 @@ buildscript {
 allprojects {
   apply plugin: 'eclipse'
   apply plugin: 'idea'
+  apply plugin: 'java'
 
   // This allows you to "Build and run using IntelliJ IDEA", an option in IDEA's Settings.
   idea {
@@ -22,6 +23,9 @@ allprojects {
       outputDir file('build/classes/java/main')
       testOutputDir file('build/classes/java/test')
     }
+  }
+  javadoc {
+    destinationDir = file("build/docs/javadoc")
   }
 }
 
@@ -68,5 +72,9 @@ subprojects {
     maven { url 'https://jitpack.io' }
   }
 }
+
+// Source - https://stackoverflow.com/questions/21209253/gradle-does-not-generate-javadocs
+// Posted by tintin
+// Retrieved 2025-11-06, License - CC BY-SA 3.0
 
 eclipse.project.name = 'YourProjectName' + '-parent'

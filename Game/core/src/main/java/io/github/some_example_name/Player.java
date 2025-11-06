@@ -5,19 +5,23 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 /** 
- * <code> Player </code> is used to control rendering and direction of the 
- * player's character, to be called by the main renderer. 
+ * <code> Player </code> is the main character of the game, handling rendering and direction of the character sprite. 
  */
 public class Player 
 {
 	/**
-	 *enumeration of all the possible directions the player sprite can face.
+	 * Enumeration of all the possible directions the player sprite can face.
 	 */
 	public enum Direction 
 	{
+		/** Face North */
 		UP, 
+
+		/** Face South */
 		DOWN, 
+		/** Face West */
 		LEFT, 
+		/** Face East */
 		RIGHT
 	}
 
@@ -31,17 +35,17 @@ public class Player
 	private TextureRegion currentFrame;
 
 	/**
-	 * construct the player and place them in the given coordinates relative 
-	 * in the world. 
+	 * Constructor for <code> Player </code>, with a set of coordinates. 
+	 * @param x Horizontal position for player to spawn in.
+	 * @param y Vertical position for player to spawn in.
 	 */
-  public Player(float x, float y) 
-  {
-			position = new Vector2(x, y);
+	public Player(float x, float y) 
+	{
+		position = new Vector2(x, y);
 
-        //loading sprite under diff positions
-        frontTexture = new Texture("Player-front.png"); 
-        backTexture = new Texture("Player-back.png");
-        sideTexture= new Texture ("Player-side.png");
+		frontTexture = new Texture("Player-front.png"); 
+		backTexture = new Texture("Player-back.png");
+		sideTexture= new Texture ("Player-side.png");
 
 		frontFrame = new TextureRegion(frontTexture);
 		backFrame = new TextureRegion(backTexture);
@@ -53,7 +57,7 @@ public class Player
 	/** 
 	 * Called to set the direction of the Player sprite.
 	 * @param newDirection the direction the player should face. 
-	 * @see Direction
+	 * @see Direction Direction.
 	 */
 	public void setDirection(Direction newDirection)
 	{
@@ -69,14 +73,14 @@ public class Player
 				currentFrame = sideFrame;
 				if (currentFrame.isFlipX()) 
 				{
-						currentFrame.flip(true, false);
+					currentFrame.flip(true, false);
 				}
 				break;
 			case RIGHT:
 				currentFrame = sideFrame;
 				if (!currentFrame.isFlipX())
 				{
-						currentFrame.flip(true, false);
+					currentFrame.flip(true, false);
 				}
 				break;
 		}
@@ -84,12 +88,11 @@ public class Player
 
 	/**
 	 * Convenience method to be called by the game screen's <code> render() 
-	 * </code> method, to draw the player using its SpriteBatch at the 
-	 * players current coordinates. 
-	 * render the players sprite. 
+	 * </code> method, to draw the player using a SpriteBatch at the current 
+	 * player coordinates. 
 	 * @param batch SpriteBatch used by application to render all sprites.  
-	 * @see SpriteBatch
-	 * @see ApplicationAdapter 
+	 * @see com.badlogic.gdx.graphics.g2d.SpriteBatch SpriteBatch
+	 * @see com.badlogic.gdx.Screen#render Screen.render().
 	 */
 	public void render(SpriteBatch batch) 
 	{
@@ -97,7 +100,7 @@ public class Player
 	}
 
 	/**
-	 * Get the player's position.s 
+	 * Get the player's position in world. 
 	 * @return The players x-by-y coordinates as a 2D vector.
 	 */
 	public Vector2 getPosition() 
@@ -108,12 +111,12 @@ public class Player
 	/**
 	 * Convenience method to be called by application to dispose of textures 
 	 * of player's sprites when the application's dispose method is called. 
-	 * @see ApplicationAdapter 
+	 * @see com.badlogic.gdx.Screen#dispose Screen.dispose().
 	 */
 	public void dispose() 
 	{
-			frontTexture.dispose();
-			backTexture.dispose();
-			sideTexture.dispose();
+		frontTexture.dispose();
+		backTexture.dispose();
+		sideTexture.dispose();
 	}
 }

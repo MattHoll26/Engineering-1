@@ -10,3 +10,5 @@ Linux/MacOS Systems:
 
 Windows:
 `./gradlew.bat javadoc`
+
+The documentation will appear in `/core/build/docs/javadoc/`. Open `/core/build/docs/javadoc/index.html` in a broswer to read docs. 

@@ -6,14 +6,25 @@ import io.github.some_example_name.Main;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
+    
+    /**   
+     * Create application.
+     * @param args Arguments for app.
+     */  
     public static void main(String[] args) {
         if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
         createApplication();
     }
 
+    /** Constructor for application.*/
     private static Lwjgl3Application createApplication() {
         return new Lwjgl3Application(new Main(), getDefaultConfiguration());
     }
+
+    /** 
+     * Get config for app.
+     * @return Application configuration 
+     */
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
         Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();

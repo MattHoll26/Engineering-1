@@ -9,77 +9,101 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+/**
+ * <code> MenuScreen </code> implements a main menu screen, to let player pause, resume
+ * and quit game. 
+ * @see com.badlogic.gdx.Screen Screen.
+ */
+
 public class MenuScreen implements Screen {
-    private final MyGame game;
-    private OrthographicCamera camera;
-    private SpriteBatch batch;
-    private BitmapFont font;
-    private FitViewport viewport;
+	private final MyGame game;
+	private OrthographicCamera camera;
+	private SpriteBatch batch;
+	private BitmapFont font;
+	private FitViewport viewport;
 
-    private final int MENU_WIDTH = 640;
-    private final int MENU_HEIGHT = 480;
+	private final int MENU_WIDTH = 640;
+	private final int MENU_HEIGHT = 480;
 
 
-    public MenuScreen(MyGame game) {
-        this.game = game;
-        
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, MENU_WIDTH, MENU_HEIGHT);
-        
-        batch = new SpriteBatch();
-        font = new BitmapFont(); //uses default font of Arial
-        font.getData().setScale(2f); //this makes the text bigger
+	/**
+	 * Constructor for <code> MenuScreen </code>, using the game creator in
+	 * <code> MyGame </code> to create menu screen.
+	 * @param game Game creator.
+	 */
+	public MenuScreen(MyGame game) {
+		this.game = game;
 
-	viewport = new FitViewport(MENU_WIDTH, MENU_HEIGHT, camera);
-    }
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, MENU_WIDTH, MENU_HEIGHT);
 
-    @Override
-    public void show() {
-        //called when this screen becomes the current screen
-    }
+		batch = new SpriteBatch();
+		font = new BitmapFont(); //uses default font of Arial
+		font.getData().setScale(2f); //this makes the text bigger
 
-    @Override
-    public void render(float delta) {
-        //clears the screen
-        Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		viewport = new FitViewport(MENU_WIDTH, MENU_HEIGHT, camera);
+	}
 
-        camera.update();
-        batch.setProjectionMatrix(camera.combined);
+	/**
+	 * Show main menu screen.
+	 */ 
+	@Override
+	public void show() {}
 
-        //draws the menu
-        batch.begin();
-        font.draw(batch, "Game Title", 200, 350);
-        font.draw(batch, "Press SPACE to Start", 150, 250);
-        font.draw(batch, "Press ESC to Exit", 170, 200);
-        batch.end();
+	/**
+	 * Process input then render new frame for the main menu. 
+	 * @param delta Time in seconds since last frame finished rendering.
+	 * @see com.badlogic.gdx.Screen#render Screen.render().
+	 */
+	@Override
+	public void render(float delta) {
+		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        //handles inputs
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            game.setScreen(new GameScreen(game));
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            Gdx.app.exit();
-        }
-    }
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
 
-    @Override
-    public void resize(int width, int height) {
-       	viewport.update(width,height); 
-    }
+		batch.begin();
+		font.draw(batch, "Game Title", 200, 350);
+		font.draw(batch, "Press SPACE to Start", 150, 250);
+		font.draw(batch, "Press ESC to Exit", 170, 200);
+		batch.end();
 
-    @Override
-    public void pause() {}
+		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+		    game.setScreen(new GameScreen(game));
+		} else if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+		    Gdx.app.exit();
+		}
+	}
 
-    @Override
-    public void resume() {}
+	/**
+	 * Resize UI Viewport when the window size is changed.
+	 * @param width Current width of window. 
+	 * @param height Current height of window. 
+	 * @see com.badlogic.gdx.Screen#resize Screen.resize().
+	 */
+	@Override
+	public void resize(int width, int height) { viewport.update(width,height); }
 
-    @Override
-    public void hide() {}
+	/**
+	 * Dispose menu assets when menu is exited or program is quit. 
+	 * @see com.badlogic.gdx.Screen#dispose Screen.dispose().
+	 */
+	@Override
+	public void dispose() {
+		batch.dispose();
+		font.dispose();
+	}
 
-    @Override
-    public void dispose() {
-        batch.dispose();
-        font.dispose();
-    }
+	/** Unimplemented */
+	@Override
+	public void pause() {}
+
+	/** Unimplemented */
+	@Override
+	public void resume() {}
+
+	/** Unimplemented */
+	@Override
+	public void hide() {}
 }
