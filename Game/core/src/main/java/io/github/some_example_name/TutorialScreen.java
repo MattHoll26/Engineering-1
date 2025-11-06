@@ -20,7 +20,7 @@ public class TutorialScreen implements Screen {
     private Texture tutorialImage;
     private FitViewport viewport;
 
-    private final int MENU_WIDTH = 640;
+    private final int MENU_WIDTH = 790;
 	private final int MENU_HEIGHT = 480;
 
     public TutorialScreen(MyGame game) {

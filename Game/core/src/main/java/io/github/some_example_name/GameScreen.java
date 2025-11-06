@@ -246,7 +246,11 @@ public class GameScreen implements Screen {
 		    busTicket.collect();
 		    canPickUpTicket = false; 
 		} else if (canEndGame && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-		    game.setScreen(new WinScreen(game));
+		    int finalScore = calculateFinalScore();
+			int timeRemaining = (int) gameTimer.getTimeLeft();
+			int timesCaught = getTimesCaughtByDean();
+
+			game.setScreen(new WinScreen(game, finalScore, timeRemaining, timesCaught));
 		}
 
 		if (!isCellBlocked(newX, newY)) {
@@ -281,6 +285,28 @@ public class GameScreen implements Screen {
 	}
 
 	/**
+	 * Calculate the player's final score
+	 */
+	public int calculateFinalScore() {
+
+		//convert the time remaining into seconds to have as the player's score
+		int timeRemainingSeconds = (int) gameTimer.getTimeLeft();
+		
+		int minutes = (int) (timeRemainingSeconds / 60);
+		int seconds = (int) (timeRemainingSeconds % 60);
+		int timeScore = (minutes * 100) + seconds; //this means 3:24 left on the clock gives a score of 324 before penalties are taken into account 
+
+		//calculate the penalty to be applied from the number of times the player gets caught by the dean
+		int deanPenalty = timesCaughtByDean * 5; //5 marks taken off per time caught
+
+		//final score calculation
+		int finalScore = timeScore - deanPenalty;
+
+		//make sure the score can't go below 0 which could happen if the dean catches you enough times
+		return Math.max(0, finalScore);
+	}
+
+	/**
 	 * Resize UI and game map viewports when the window size is changed.
 	 * @param width Current width of window. 
 	 * @param height Current height of window. 
@@ -292,6 +318,13 @@ public class GameScreen implements Screen {
 		uiStage.getViewport().apply();
 		viewport.update(width, height);
 		viewport.apply();
+	}
+
+	/**
+	 * Get the number of times the player is caught by the Dean
+	 */
+	public int getTimesCaughtByDean() {
+		return timesCaughtByDean;
 	}
 
 	/**

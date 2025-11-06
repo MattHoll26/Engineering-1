@@ -22,7 +22,7 @@ public class MenuScreen implements Screen {
 	private BitmapFont font;
 	private FitViewport viewport;
 
-	private final int MENU_WIDTH = 750;
+	private final int MENU_WIDTH = 640;
 	private final int MENU_HEIGHT = 480;
 
 
