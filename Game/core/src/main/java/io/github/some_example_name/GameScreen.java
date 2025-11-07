@@ -25,6 +25,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  * the game progresses.
  * @see com.badlogic.gdx.Screen Screen.
  */
+
 public class GameScreen implements Screen {
 	private final MyGame game;
 	private boolean isPaused = false;
@@ -227,6 +228,17 @@ public class GameScreen implements Screen {
 		}
 
 		batch.end();
+
+		// Decrement the timer only if the game is not paused
+		if (!isPaused) {
+			gameTimer.decrementTimer(delta);
+		}
+
+		if (gameTimer.getTimeLeft() == 0) { 
+			gameTimer.onTimeUp();
+			game.setScreen(new MenuScreen(game));
+		}
+
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			game.setScreen(new MenuScreen(game));
