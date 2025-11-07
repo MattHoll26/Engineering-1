@@ -19,13 +19,24 @@ public class WinScreen implements Screen {
 	private SpriteBatch batch;
 	private BitmapFont font;
 
+	//scoring system variables
+	private int finalScore;
+	private int timeRemaining;
+	private int timesCaught;
+
 	/**
 	 * Constructor for <code> WinScreen </code>, using the game creator in
 	 * <code> MyGame </code> to create menu screen.
 	 * @param game Game creator.
+	 * @param finalScore The calculated final score
+	 * @param timeRemaining Time remaining in seconds
+	 * @param timesCaught Number of times the player is caught by the dean
 	 */
-	public WinScreen(MyGame game) {
+	public WinScreen(MyGame game, int finalScore, int timeRemaining, int timesCaught) {
 		this.game = game;
+		this.finalScore = finalScore;
+		this.timeRemaining = timeRemaining;
+		this.timesCaught = timesCaught;
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 640, 480);
@@ -50,7 +61,9 @@ public class WinScreen implements Screen {
 
 		batch.begin();
 		font.draw(batch, "You Win!", 250, 350);
-		font.draw(batch, "Press SPACE to return to menu", 100, 250);
+		font.draw(batch, "Final Score = " + finalScore, 200, 310);
+		font.draw(batch, "Dean Penalty = " + timesCaught * 5, 200, 270);
+		font.draw(batch, "Press SPACE to return to menu", 100, 150);
 		batch.end();
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
@@ -74,8 +87,6 @@ public class WinScreen implements Screen {
 
 	/** Unimplemented */
 	@Override
-
-	/** Unimplemented */
 	public void resize(int width, int height) {}
 
 	/** Unimplemented */

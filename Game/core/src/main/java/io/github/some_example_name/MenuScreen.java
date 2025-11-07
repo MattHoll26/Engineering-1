@@ -64,13 +64,13 @@ public class MenuScreen implements Screen {
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.begin();
-		font.draw(batch, "Game Title", 200, 350);
-		font.draw(batch, "Press SPACE to Start", 150, 250);
-		font.draw(batch, "Press ESC to Exit", 170, 200);
+		font.draw(batch, "Escape from University", 170, 350);
+		font.draw(batch, "Press SPACE to Start", 175, 250);
+		font.draw(batch, "Press ESC to Exit", 198, 200);
 		batch.end();
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-		    game.setScreen(new GameScreen(game));
+		    game.setScreen(new TutorialScreen(game));
 		} else if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 		    Gdx.app.exit();
 		}
