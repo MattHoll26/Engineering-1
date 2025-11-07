@@ -27,6 +27,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  */
 public class GameScreen implements Screen {
 	private final MyGame game;
+	private boolean isPaused = false;
 
 	TiledMap tiledMap;
 	OrthogonalTiledMapRenderer mapRenderer;
@@ -119,6 +120,34 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		handleInput();
+
+		if (isPaused) {
+			// Render the current frame
+			camera.update();
+			mapRenderer.setView(camera);
+			mapRenderer.render();
+
+			batch.setProjectionMatrix(camera.combined);
+			batch.begin();
+
+			// Render the "Game Paused" message
+			font.draw(batch, "Game Paused", camera.position.x - 50, camera.position.y + 50);
+
+			// Render the player and other static elements
+			player.render(batch);
+			if (busTicket != null && busTicket.isCollected()) {
+				busTicket.renderAsIcon(batch, camera);
+			}
+
+			batch.end();
+
+			// Render the UI stage
+			uiStage.act(delta);
+			uiStage.draw();
+
+			return; // Skip the rest of the game logic
+		}
+
 		friend.update(player);
 		dean.update(delta);
 
@@ -233,19 +262,40 @@ public class GameScreen implements Screen {
 		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 		    newY += moveSpeed;
 		    player.setDirection(Player.Direction.UP);
-		} else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+		} 
+		
+		else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
 		    newY -= moveSpeed;
 		    player.setDirection(Player.Direction.DOWN);
-		} else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+		} 
+		
+		else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
 		    newX -= moveSpeed;
 		    player.setDirection(Player.Direction.LEFT);
-		} else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+		} 
+
+		else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
 		    newX += moveSpeed;
 		    player.setDirection(Player.Direction.RIGHT);
-		} else if (canPickUpTicket && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+		}
+		
+		else if (canPickUpTicket && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
 		    busTicket.collect();
 		    canPickUpTicket = false; 
-		} else if (canEndGame && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+
+		} 
+
+		// Change pause functionality to use the P key, include this in docstrings
+    	if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+        	isPaused = !isPaused; // Toggle pause state
+        	return; // Skip other input handling when toggling pause
+    	}
+
+		if (isPaused) {
+        	return; // Do not process input if the game is paused
+    	}
+	
+		else if (canEndGame && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
 		    game.setScreen(new WinScreen(game));
 		}
 
