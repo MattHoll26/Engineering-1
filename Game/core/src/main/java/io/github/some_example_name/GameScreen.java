@@ -328,10 +328,22 @@ public class GameScreen implements Screen {
 			game.setScreen(new WinScreen(game, finalScore, timeRemaining, timesCaught));
 		}
 
-		if (!isCellBlocked(newX, newY)) {
-		    player.getPosition().set(newX, newY);
-		}
-	}
+        float oldX = player.getPosition().x;
+        float oldY = player.getPosition().y;
+
+        if (!isCellBlocked(newX, newY)) {
+            player.getPosition().set(newX, newY);
+        }
+
+        else if (!isCellBlocked(newX, oldY)) {
+            player.getPosition().set(newX, oldY);
+        }
+
+        else if (!isCellBlocked(oldX, newY)) {
+            player.getPosition().set(oldX, newY);
+        }
+
+    }
 
 	/**
 	 * Returns if the cell at a given coordinate in the world allows an entity
