@@ -78,10 +78,10 @@ public class GameScreen implements Screen {
 		viewport = new FitViewport(MAP_WIDTH, MAP_HEIGHT, camera);
 
 		batch = new SpriteBatch();
-		player = new Player(145, 70);
-		locker = new Locker(495, 575);
+		player = new Player(560, 180);
+		locker = new Locker(495, 975);
 		dean = new Dean(90, 450,     player, this);
-		friend = new NPC(560, 300);
+		friend = new NPC(560, 600);
 
 		catchCounterFont = new BitmapFont();
 		catchCounterFont.getData().setScale(1.5f);
@@ -153,7 +153,7 @@ public class GameScreen implements Screen {
 		dean.update(delta);
 
 		if (player.getPosition().dst(dean.getPosition()) < 16f) {
-		    player.getPosition().set(145,70);
+		    player.getPosition().set(560, 180);
 			timesCaughtByDean++;
 		    dean.resetToStart(timesCaughtByDean); //send the dean back to his starting position or other side of the map to ensure he can't spawn camp the player
 		}
