@@ -1,4 +1,4 @@
 package io.github.some_example_name;
 
-public class Benefit_3 {
+public class Extra_Time {
 }
