@@ -1,4 +1,4 @@
 package io.github.some_example_name;
 
-public class Benefit_2 {
+public class Freeze_Dean {
 }

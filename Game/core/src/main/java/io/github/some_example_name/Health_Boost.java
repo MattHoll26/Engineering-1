@@ -1,4 +1,4 @@
 package io.github.some_example_name;
 
-public class Hidden_2 {
+public class Health_Boost {
 }

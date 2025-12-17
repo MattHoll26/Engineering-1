@@ -80,7 +80,7 @@ public class GameScreen implements Screen {
 		batch = new SpriteBatch();
 		player = new Player(560, 180);
 		locker = new Locker(495, 895);
-		dean = new Dean(90, 450,     player, this);
+		dean = new Dean(325, 335,     player, this);
 		friend = new NPC(560, 600);
 
 		catchCounterFont = new BitmapFont();
