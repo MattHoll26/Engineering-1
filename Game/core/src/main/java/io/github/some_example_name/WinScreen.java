@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
- * <code> WinScreen </code> implements a static screen with a congratulation message, and 
+ * <code> WinScreen </code> implements a static screen with a congratulation message, and
  * allows player to then quit or replay game.
  * @see com.badlogic.gdx.Screen Screen.
  */
@@ -22,7 +22,7 @@ public class WinScreen implements Screen {
 	//scoring system variables
 	private int finalScore;
 	private int timeRemaining;
-	private int timesCaught;
+	private int totalPenalty;
 
 	/**
 	 * Constructor for <code> WinScreen </code>, using the game creator in
@@ -30,13 +30,13 @@ public class WinScreen implements Screen {
 	 * @param game Game creator.
 	 * @param finalScore The calculated final score
 	 * @param timeRemaining Time remaining in seconds
-	 * @param timesCaught Number of times the player is caught by the dean
+	 * @param totalPenalty
 	 */
-	public WinScreen(MyGame game, int finalScore, int timeRemaining, int timesCaught) {
+	public WinScreen(MyGame game, int finalScore, int timeRemaining, int totalPenalty) {
 		this.game = game;
 		this.finalScore = finalScore;
 		this.timeRemaining = timeRemaining;
-		this.timesCaught = timesCaught;
+        this.totalPenalty = totalPenalty;
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 640, 480);
@@ -47,7 +47,7 @@ public class WinScreen implements Screen {
 	}
 
 	/**
-	 * Process input then render new frame, including dialog, for the win menu. 
+	 * Process input then render new frame, including dialog, for the win menu.
 	 * @param delta Time in seconds since last frame finished rendering.
 	 * @see com.badlogic.gdx.Screen#render Screen.render().
 	 */
@@ -62,7 +62,7 @@ public class WinScreen implements Screen {
 		batch.begin();
 		font.draw(batch, "You Win!", 250, 350);
 		font.draw(batch, "Final Score = " + finalScore, 188, 310);
-		font.draw(batch, "Dean Penalty = " + timesCaught * 5, 188, 270);
+		font.draw(batch, "Penalties = " + totalPenalty, 188, 270);
 		font.draw(batch, "Press SPACE to return to menu", 100, 150);
 		batch.end();
 
@@ -72,15 +72,15 @@ public class WinScreen implements Screen {
 	}
 
    	/**
-	 * Dispose win menu assets when menu is exited or program is quit. 
+	 * Dispose win menu assets when menu is exited or program is quit.
 	 * @see com.badlogic.gdx.Screen#dispose Screen.dispose().
-	 */ 
+	 */
 	@Override
 	public void dispose() {
 		batch.dispose();
 		font.dispose();
 	}
-	
+
 	/** Unimplemented */
 	@Override
 	public void show() {}

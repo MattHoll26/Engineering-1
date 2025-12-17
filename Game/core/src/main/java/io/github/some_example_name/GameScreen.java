@@ -49,7 +49,7 @@ public class GameScreen implements Screen {
 	private BitmapFont font;
 	private boolean canPickUpTicket = false;
     private boolean hasDrowned = false;
-
+    private int timesDrowned = 0;
 
     private Rectangle busInteractionArea;
 	private boolean canEndGame = false;
@@ -60,7 +60,7 @@ public class GameScreen implements Screen {
 	private Dean dean;
 	private NPC friend;
 	private int timesCaughtByDean = 0;
-	private BitmapFont catchCounterFont;
+    private BitmapFont catchCounterFont;
 
 	/**
 	 * Constructor for <code> GameScreen </code>, using the game creator
@@ -173,6 +173,7 @@ public class GameScreen implements Screen {
 
         if (drown.update(player)) {
             hasDrowned = true;
+            timesDrowned++;
         }
 
         locker.update(player, delta);
@@ -218,16 +219,22 @@ public class GameScreen implements Screen {
 
 		//draw the three events encountered checklists in the top left hand corner of the screen
 		//events get updates using a ternary operator which is like a condensed if/else statement -> it is set out like: (condition ? vali_if_true : value_if_false)
-		font.draw(batch, "Positive Event Encountered = " + (locker.isBoostActive() ? "1" : "0") + "/1", 35, 630);//this means if the locker boost is active (the bus ticket has been picked up) display that the event 1/1 has been enocuntered otherwide 0/1
+
+        int positiveEvents = 0;
+        if (locker.isBoostActive()) positiveEvents++;
+
+		font.draw(batch, "Positive Events Encountered = " + positiveEvents + "/1", 35, 630);//this means if the locker boost is active (the bus ticket has been picked up) display that the event 1/1 has been enocuntered otherwide 0/1
 
         int negativeEvents = 0;
-        if (timesCaughtByDean > 0) negativeEvents += 1;
-        if (hasDrowned) negativeEvents +=1 ;
+        if (timesCaughtByDean > 0) negativeEvents++;
+        if (hasDrowned) negativeEvents++;
 
+        font.draw(batch, "Negative Events Encountered = " + negativeEvents + "/2" , 35, 610);
 
-        font.draw(batch, "Negative Event Encountered = " + negativeEvents + "/2" , 35, 610);
+        int hiddenEvents = 0;
+        if (busTicket.isCollected()) hiddenEvents++;
 
-        font.draw(batch, "Hidden Event Encountered = " + (busTicket.isCollected() ? "1" : "0") + "/1", 35, 590);
+        font.draw(batch, "Hidden Events Encountered = " + hiddenEvents + "/1", 35, 590);
 
 
 
@@ -348,10 +355,12 @@ public class GameScreen implements Screen {
 
 		else if (canEndGame && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
 		    int finalScore = calculateFinalScore();
+            int totalPenalty = calculateTotalPenalty();
 			int timeRemaining = (int) gameTimer.getTimeLeft();
 			int timesCaught = getTimesCaughtByDean();
 
-			game.setScreen(new WinScreen(game, finalScore, timeRemaining, timesCaught));
+
+			game.setScreen(new WinScreen(game, finalScore, timeRemaining, totalPenalty));
 		}
 
         float oldX = player.getPosition().x;
@@ -400,26 +409,29 @@ public class GameScreen implements Screen {
 	/**
 	 * Calculate the player's final score
 	 */
-	public int calculateFinalScore() {
+    public int calculateFinalScore() {
+        //convert the time remaining into seconds to have as the player's score
+        int timeRemainingSeconds = (int) gameTimer.getTimeLeft();
 
-		//convert the time remaining into seconds to have as the player's score
-		int timeRemainingSeconds = (int) gameTimer.getTimeLeft();
+        int minutes = timeRemainingSeconds / 60;
+        int seconds = timeRemainingSeconds % 60;
+        int timeScore = (minutes * 100) + seconds; //this means 3:24 left on the clock gives a score of 324 before penalties are taken into account
 
-		int minutes = (int) (timeRemainingSeconds / 60);
-		int seconds = (int) (timeRemainingSeconds % 60);
-		int timeScore = (minutes * 100) + seconds; //this means 3:24 left on the clock gives a score of 324 before penalties are taken into account
+        int totalPenalty = calculateTotalPenalty();
 
-		//calculate the penalty to be applied from the number of times the player gets caught by the dean
-		int deanPenalty = timesCaughtByDean * 5; //5 marks taken off per time caught
+        //make sure the score can't go below 0 which could happen if the dean catches you enough times
+        return Math.max(0, timeScore - totalPenalty);
+    }
 
-		//final score calculation
-		int finalScore = timeScore - deanPenalty;
 
-		//make sure the score can't go below 0 which could happen if the dean catches you enough times
-		return Math.max(0, finalScore);
-	}
+    public int calculateTotalPenalty() {
+        int deanPenalty = timesCaughtByDean * 5;
+        int drownedPenalty = timesDrowned * 10;
+        return deanPenalty + drownedPenalty;
+    }
 
-	/**
+
+    /**
 	 * Resize UI and game map viewports when the window size is changed.
 	 * @param width Current width of window.
 	 * @param height Current height of window.
