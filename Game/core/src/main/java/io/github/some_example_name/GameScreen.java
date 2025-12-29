@@ -59,9 +59,14 @@ public class GameScreen implements Screen {
 	private final int MAP_WIDTH = 640;
 	private final int MAP_HEIGHT = 640;
 
-	private Dean dean;
+    private Patrol_Dean patrolDean1;
+    private Patrol_Dean patrolDean2;
+    private Patrol_Dean patrolDean3;
+
+    private Dean dean;
 	private NPC friend;
 	private int timesCaughtByDean = 0;
+    private int timesCaughtByPatrol = 0;
     private BitmapFont catchCounterFont;
 
 	/**
@@ -95,7 +100,10 @@ public class GameScreen implements Screen {
 		locker = new Locker(495, 895);
         bush = new Slow_Down(560, 270);
         tree = new Decrease_Time(270, 9);
-		dean = new Dean(325, 335,     player, this);
+        patrolDean1 = new Patrol_Dean(140, 190, 100, 260, this);
+        patrolDean2 = new Patrol_Dean(170, 130, 100, 260, this);
+        patrolDean3 = new Patrol_Dean(200, 100, 100, 260, this);
+        dean = new Dean(325, 335,     player, this);
 		friend = new NPC(560, 600);
 
 		catchCounterFont = new BitmapFont();
@@ -114,8 +122,6 @@ public class GameScreen implements Screen {
 		if (busObject != null && busObject instanceof RectangleMapObject) {
 		    this.busInteractionArea = ((RectangleMapObject) busObject).getRectangle();
 		}
-
-
 
 		uiSkin = new Skin(Gdx.files.internal("ui/uiskin.json"));
 		uiStage = new Stage(new FitViewport(MAP_WIDTH, MAP_HEIGHT));
@@ -167,13 +173,25 @@ public class GameScreen implements Screen {
 		}
 
 		friend.update(player);
-		dean.update(delta);
+        patrolDean1.update(delta);
+        patrolDean2.update(delta);
+        patrolDean3.update(delta);
+        dean.update(delta);
 
 		if (player.getPosition().dst(dean.getPosition()) < 16f) {
 		    player.getPosition().set(560, 180);
 			timesCaughtByDean++;
 		    dean.resetToStart(timesCaughtByDean); //send the dean back to his starting position or other side of the map to ensure he can't spawn camp the player
 		}
+
+        if (player.getPosition().dst(patrolDean1.getPosition()) < 16f ||
+            player.getPosition().dst(patrolDean2.getPosition()) < 16f ||
+            player.getPosition().dst(patrolDean3.getPosition()) < 16f) {
+
+            player.getPosition().set(560, 180);
+            timesCaughtByPatrol++;
+        }
+
 
         if (drown.update(player)) {
             hasDrowned = true;
@@ -233,11 +251,12 @@ public class GameScreen implements Screen {
 
         int negativeEvents = 0;
         if (timesCaughtByDean > 0) negativeEvents++;
+        if (timesCaughtByPatrol > 0) negativeEvents ++;
         if (hasDrowned) negativeEvents++;
         if (bush.bushFall()) negativeEvents++;
         if (tree.hitTree()) negativeEvents++;
 
-        font.draw(batch, "Negative Events Encountered = " + negativeEvents + "/4" , 35, 610);
+        font.draw(batch, "Negative Events Encountered = " + negativeEvents + "/5" , 35, 610);
 
         int hiddenEvents = 0;
         if (busTicket.isCollected()) hiddenEvents++;
@@ -275,8 +294,11 @@ public class GameScreen implements Screen {
 		locker.render(batch);
         bush.render(batch);
         tree.render(batch);
-		dean.render(batch);
-		friend.render(batch);
+        patrolDean1.render(batch);
+        patrolDean2.render(batch);
+        patrolDean3.render(batch);
+        dean.render(batch);
+        friend.render(batch);
 		player.render(batch);
 
 		if (busTicket != null && busTicket.isCollected()) {
@@ -480,7 +502,10 @@ public class GameScreen implements Screen {
         bush.dispose();
 		font.dispose();
 		uiStage.dispose();
-		dean.dispose();
+        patrolDean1.dispose();
+        patrolDean2.dispose();
+        patrolDean3.dispose();
+        dean.dispose();
 		catchCounterFont.dispose();
 		friend.dispose();
 		if (busTicket != null) { busTicket.dispose(); }
