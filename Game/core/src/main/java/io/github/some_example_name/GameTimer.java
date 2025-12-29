@@ -75,6 +75,10 @@ public class GameTimer {
 		this.timerLabel.setText(this.toString());
 	}
 
+    /**
+     * Allows the timer to be decreased or increased by any amount
+     * @param amount Value to add or remove from timer
+     */
     public void addTime(float amount) {
         this.timeLeft = Math.max(0, this.timeLeft + amount);
         this.timerLabel.setText(this.toString());

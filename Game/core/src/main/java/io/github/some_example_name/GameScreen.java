@@ -96,7 +96,7 @@ public class GameScreen implements Screen {
         bush = new Slow_Down(560, 270);
         tree = new Decrease_Time(270, 9);
 		dean = new Dean(325, 335,     player, this);
-		friend = new NPC(560, 600);
+		friend = new NPC(560, 610);
 
 		catchCounterFont = new BitmapFont();
 		catchCounterFont.getData().setScale(1.5f);

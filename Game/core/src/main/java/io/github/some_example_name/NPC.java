@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import static com.badlogic.gdx.math.MathUtils.random;
 
 /**
  * <code> NPC </code> represents NPCs that can provide items or dialog to
@@ -18,7 +19,9 @@ public class NPC {
 	private Rectangle bounds;
 	private BitmapFont font;
 	private boolean showMessage = false;
-
+    private String[] lines = {"Hey friend!\nDon't forget your bus ticket...\nyou always manage to drop it in a bush",
+                            "I wonder what would happen \nif u flicked the lever in the clearing..."};
+    private String currentLine;
 	/**
 	 * Constructor for <code> NPC </code>, with a set of coordinates.
 	 * @param x Horizontal position for NPC to spawn in.
@@ -43,6 +46,7 @@ public class NPC {
 		)
 		{
 		    showMessage = true;
+            currentLine = lines[random.nextInt(lines.length)];
 		}
 
 		if(showMessage && player.getPosition().dst(position) > 60f){
@@ -60,10 +64,10 @@ public class NPC {
 	 */
 	public void render(SpriteBatch batch){
 		batch.draw(texture, position.x, position.y);
-		if (showMessage){
+		if (showMessage && currentLine != null){
 		    font.draw(
 			batch,
-			"Hey friend!\nDon't forget your bus ticket...\nyou always manage to drop it in a bush",
+			currentLine,
 			position.x - 100, position.y + texture.getHeight() + 40);
 		}
 	}

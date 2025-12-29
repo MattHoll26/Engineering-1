@@ -106,5 +106,9 @@ public class Locker {
 		return speedBoostTimer > 0;
 	}
 
+    /**
+     * Return if the locker has been searched for updating the counter
+     * @return True/False value.
+     */
     public boolean lockerSearched() {return lockerSearched; }
 }

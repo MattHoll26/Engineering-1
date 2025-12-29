@@ -1,17 +1,14 @@
 package io.github.some_example_name;
 
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * <code> Weed </code> is an interactable game object, that acts as the
+ * <code> bush </code> is an interactable game object, that acts as the
  * negative game event by allowing the player to fall into a bush,
  * giving a temporary speed reduction.
  */
@@ -31,9 +28,9 @@ public class Slow_Down {
     private BitmapFont font;
 
     /**
-     * Constructor for <code> Weed </code>, with a set of coordinates.
-     * @param x Horizontal position for locker to spawn in.
-     * @param y Vertical position for locker to spawn in.
+     * Constructor for <code> bush </code>, with a set of coordinates.
+     * @param x Horizontal position for bush to spawn in.
+     * @param y Vertical position for bush to spawn in.
      */
     public Slow_Down(float x, float y) {
         texture = new Texture("locker.png");
@@ -43,7 +40,7 @@ public class Slow_Down {
     }
 
     /**
-     * Update attributes of Weed, and decrement timer on speed boost and
+     * Update attributes of bush, and decrement timer on speed decrease and
      * label timer, showing label if the label timer is still active.
      * @param player Player character.
      * @param delta Time elapsed since last frame.
@@ -73,7 +70,7 @@ public class Slow_Down {
 
     /**
      * Convenience method to be called by the game screen's <code> render()
-     * </code> method, to draw the weed and it's label using a
+     * </code> method, to draw the bush and it's label using a
      * SpriteBatch at it's coordinates.
      * @param batch SpriteBatch used by application to render all sprites.
      * @see com.badlogic.gdx.graphics.g2d.SpriteBatch SpriteBatch
@@ -92,7 +89,7 @@ public class Slow_Down {
 
     /**
      * Convenience method to be called by application to dispose of texture
-     * and font's weed's sprites when the application's dispose method is called.
+     * and font's bush's sprites when the application's dispose method is called.
      * @see com.badlogic.gdx.Screen#dispose Screen.dispose().
      */
     public void dispose(){
@@ -101,13 +98,17 @@ public class Slow_Down {
     }
 
     /**
-     * Return if speed booster is still active.
+     * Return if speed decrease is still active.
      * @return True/False value.
      */
     public boolean isBoostActive() {
         return speedBoostTimer > 0;
     }
 
+    /**
+     * Return if the bush has been fallen in for updating the counter
+     * @return True/False value.
+     */
     public boolean bushFall() {return fallen; }
     }
 
