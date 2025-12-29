@@ -48,6 +48,7 @@ public class GameScreen implements Screen {
     private Locker locker;
     private Slow_Down bush;
     private Decrease_Time tree;
+    private Extra_Time extraTime;
     private BitmapFont font;
     private boolean canPickUpTicket = false;
     private boolean hasDrowned = false;
@@ -100,6 +101,7 @@ public class GameScreen implements Screen {
         locker = new Locker(495, 895);
         bush = new Slow_Down(560, 270);
         tree = new Decrease_Time(270, 9);
+        extraTime = new Extra_Time(300, 120);
         dean = new Dean(325, 335,     player, this);
         patrolDean1 = new Patrol_Dean(140, 190, 100, 260, this);
         patrolDean2 = new Patrol_Dean(170, 130, 100, 260, this);
@@ -205,6 +207,8 @@ public class GameScreen implements Screen {
         locker.update(player, delta);
         bush.update(player, delta);
         tree.update(player, gameTimer, delta);
+        extraTime.update(player, gameTimer, delta);
+
 
         if (busTicket != null) {
             if (!busTicket.isCollected()) {
@@ -250,8 +254,9 @@ public class GameScreen implements Screen {
 
         int positiveEvents = 0;
         if (locker.lockerSearched()) positiveEvents++;
+        if (extraTime.gainedTime()) positiveEvents++;
 
-        font.draw(batch, "Positive Events Encountered = " + positiveEvents + "/1", 35, 630);//this means if the locker boost is active (the bus ticket has been picked up) display that the event 1/1 has been enocuntered otherwide 0/1
+        font.draw(batch, "Positive Events Encountered = " + positiveEvents + "/2", 35, 630);//this means if the locker boost is active (the bus ticket has been picked up) display that the event 1/1 has been enocuntered otherwide 0/1
 
         int negativeEvents = 0;
         if (timesCaughtByDean > 0) negativeEvents++;
@@ -299,6 +304,7 @@ public class GameScreen implements Screen {
         locker.render(batch);
         bush.render(batch);
         tree.render(batch);
+        extraTime.render(batch);
         dean.render(batch);
         friend.render(batch);
         patrolDean1.render(batch);
@@ -537,6 +543,7 @@ public class GameScreen implements Screen {
         dean.dispose();
         catchCounterFont.dispose();
         friend.dispose();
+        extraTime.dispose();
         if (busTicket != null) { busTicket.dispose(); }
     }
 
