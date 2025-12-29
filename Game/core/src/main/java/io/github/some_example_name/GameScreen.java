@@ -48,6 +48,7 @@ public class GameScreen implements Screen {
     private Locker locker;
     private Slow_Down bush;
     private Decrease_Time tree;
+    //private Extra_Time
 	private BitmapFont font;
 	private boolean canPickUpTicket = false;
     private boolean hasDrowned = false;

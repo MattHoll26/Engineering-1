@@ -82,7 +82,7 @@ public class Decrease_Time {
      * @see com.badlogic.gdx.Screen#render Screen.render().
      */
     public void render(SpriteBatch batch) {
-        batch.draw(cropped, position.x, position.y, cropped.getRegionWidth() * scale, cropped.getRegionHeight() * scale);
+       // batch.draw(cropped, position.x, position.y, cropped.getRegionWidth() * scale, cropped.getRegionHeight() * scale);
         if (showMessage) {
             font.draw(
                 batch,
