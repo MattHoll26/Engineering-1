@@ -1,5 +1,6 @@
 package io.github.some_example_name;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -49,6 +50,7 @@ public class GameScreen implements Screen {
     private Slow_Down bush;
     private Decrease_Time tree;
     private Extra_Time extraTime;
+    private Teleport labEquipment;
     private BitmapFont font;
     private boolean canPickUpTicket = false;
     private boolean hasDrowned = false;
@@ -101,6 +103,7 @@ public class GameScreen implements Screen {
         locker = new Locker(495, 895);
         bush = new Slow_Down(560, 270);
         tree = new Decrease_Time(270, 9);
+        labEquipment = new Teleport(800,620, this);
         extraTime = new Extra_Time(300, 120);
         dean = new Dean(325, 335,     player, this);
         patrolDean1 = new Patrol_Dean(140, 190, 100, 260, this);
@@ -208,6 +211,7 @@ public class GameScreen implements Screen {
         bush.update(player, delta);
         tree.update(player, gameTimer, delta);
         extraTime.update(player, gameTimer, delta);
+        labEquipment.update(player, delta);
 
 
         if (busTicket != null) {
@@ -270,8 +274,9 @@ public class GameScreen implements Screen {
 
         int hiddenEvents = 0;
         if (busTicket.isCollected()) hiddenEvents++;
+        if (labEquipment.teleportHappened()) hiddenEvents++;
 
-        font.draw(batch, "Hidden Events Encountered = " + hiddenEvents + "/1", 35, 590);
+        font.draw(batch, "Hidden Events Encountered = " + hiddenEvents + "/2", 35, 590);
 
 
 
@@ -305,6 +310,7 @@ public class GameScreen implements Screen {
         bush.render(batch);
         tree.render(batch);
         extraTime.render(batch);
+        labEquipment.render(batch);
         dean.render(batch);
         friend.render(batch);
         patrolDean1.render(batch);
@@ -534,6 +540,7 @@ public class GameScreen implements Screen {
         player.dispose();
         locker.dispose();
         bush.dispose();
+        labEquipment.dispose();
         font.dispose();
         uiStage.dispose();
         dean.dispose();
