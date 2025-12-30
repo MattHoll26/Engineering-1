@@ -82,7 +82,7 @@ public class Questionnaire {
         showQuiz = false;
         answered = true;
         playerFrozen = false;
-        resultText = questionSuccess ? "CORRECT, freezing Deans" : "INCORRECT, more Deans";
+        resultText = questionSuccess ? "CORRECT, freezing Deans Permanently" : "INCORRECT, more Deans";
         resultTimer = 3f;
     }
 
