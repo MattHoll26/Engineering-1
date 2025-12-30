@@ -4,6 +4,7 @@ package io.github.some_example_name;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -15,6 +16,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Slow_Down {
     private Texture texture;
+    private TextureRegion cropped;
     private Vector2 position;
     private Rectangle bounds;
     private boolean searched = false;
@@ -33,9 +35,10 @@ public class Slow_Down {
      * @param y Vertical position for bush to spawn in.
      */
     public Slow_Down(float x, float y) {
-        texture = new Texture("locker.png");
+        texture = new Texture("objects.png");
+        cropped = new TextureRegion(texture, 96, 113, 32, 30);
         position = new Vector2(x, y);
-        bounds = new Rectangle(x,y,texture.getWidth(), texture.getHeight());
+        bounds = new Rectangle(x, y, cropped.getRegionWidth(), cropped.getRegionHeight() );
         font = new BitmapFont();
     }
 
@@ -46,8 +49,14 @@ public class Slow_Down {
      * @param delta Time elapsed since last frame.
      */
     public void update(Player player, float delta) {
-        if (!searched && bounds.contains(player.getPosition())){
-            if (player.getPosition().dst(position) < 50f) {
+        if (!searched) {
+            Rectangle playerRect = new Rectangle(
+                player.getPosition().x,
+                player.getPosition().y,
+                player.currentFrame.getRegionWidth(),   // width of player sprite
+                player.currentFrame.getRegionHeight()   // height of player sprite
+            );
+            if (bounds.overlaps(playerRect)) {
                 searched = true;
                 showMessage = true;
                 fallen = true;
@@ -56,18 +65,17 @@ public class Slow_Down {
             }
         }
 
-        if (speedBoostTimer > 0){
+        if (speedBoostTimer > 0) {
             speedBoostTimer -= delta;
         }
 
         if (showMessage) {
             messageTimer += delta;
-            if (messageTimer > messageDuration){
+            if (messageTimer > messageDuration) {
                 showMessage = false;
             }
         }
     }
-
     /**
      * Convenience method to be called by the game screen's <code> render()
      * </code> method, to draw the bush and it's label using a
@@ -77,12 +85,12 @@ public class Slow_Down {
      * @see com.badlogic.gdx.Screen#render Screen.render().
      */
     public void render(SpriteBatch batch){
-        batch.draw(texture, position.x, position.y);
+        batch.draw(cropped, position.x, position.y, cropped.getRegionWidth(), cropped.getRegionHeight());
         if (showMessage) {
             font.draw(
                 batch,
                 "You fell in a bush,\n you have poison damage :(",
-                position.x - 100, position.y + texture.getHeight() + 40
+                position.x - 100, position.y + cropped.getRegionHeight() + 40
             );
         }
     }

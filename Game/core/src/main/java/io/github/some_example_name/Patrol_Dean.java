@@ -15,7 +15,7 @@ public class Patrol_Dean {
     private final Texture texture;
     private final GameScreen gameScreen;
 
-    private float speed = 0.7f;
+    private float speed = 3f;
 
     // limits
     private final float minY;

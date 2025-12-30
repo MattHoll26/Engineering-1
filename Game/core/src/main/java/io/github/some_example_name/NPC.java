@@ -20,7 +20,9 @@ public class NPC {
 	private BitmapFont font;
 	private boolean showMessage = false;
     private String[] lines = {"Hey friend!\nDon't forget your bus ticket...\nyou always manage to drop it in a bush",
-                            "I wonder what would happen \nif u flicked the lever in the clearing..."};
+                            "I wonder what would happen \nif u searched the material in the clearing...",
+                            "Have you visited my twin??",
+                            "How are you in 2 places at once!!!\nMaybe check the deans office?"};
     private String currentLine;
 	/**
 	 * Constructor for <code> NPC </code>, with a set of coordinates.

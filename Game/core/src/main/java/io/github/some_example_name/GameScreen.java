@@ -115,15 +115,14 @@ public class GameScreen implements Screen {
         batch = new SpriteBatch();
         player = new Player(560, 180);
         locker = new Locker(495, 895);
-        bush = new Slow_Down(560, 270);
+        bush = new Slow_Down(770, 545);
         tree = new Decrease_Time(270, 9);
-        labEquipment = new Teleport(800,620, this);
+        labEquipment = new Teleport(750,610, this);
         extraTime = new Extra_Time(300, 120);
         dean = new Dean(325, 335,     player, this);
         patrolDean1 = new Patrol_Dean(140, 190, 100, 260, this);
         patrolDean2 = new Patrol_Dean(170, 130, 100, 260, this);
         patrolDean3 = new Patrol_Dean(200, 100, 100, 260, this);
-        dean = new Dean(325, 335,     player, this);
         friend = new NPC(560, 600);
 
         catchCounterFont = new BitmapFont();
@@ -617,7 +616,7 @@ public class GameScreen implements Screen {
 
     public void spawnSecondDean() {
         // Extra dean spawns in top-right area
-        extraDean = new Patrol_Dean(550, 450, 800, 600, this);
+        extraDean = new Patrol_Dean(800, 800, 700, 800, this);
     }
 
     /** Unimplemented */
