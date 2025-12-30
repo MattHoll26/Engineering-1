@@ -616,7 +616,7 @@ public class GameScreen implements Screen {
 
     public void spawnSecondDean() {
         // Extra dean spawns in top-right area
-        extraDean = new Patrol_Dean(800, 800, 700, 800, this);
+        extraDean = new Patrol_Dean(780, 800, 700, 800, this);
     }
 
     /** Unimplemented */

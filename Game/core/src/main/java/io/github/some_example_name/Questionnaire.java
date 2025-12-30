@@ -94,21 +94,21 @@ public class Questionnaire {
         if (quizArea == null) return;
 
         if (discovered && !answered) {
-            font.draw(batch, "[E] Quiz?", quizArea.x - 30, quizArea.y + 100);
+            font.draw(batch, "[E] Quiz?", quizArea.x , quizArea.y + 100);
         }
 
         if (showQuiz) {
-            font.draw(batch, "Which of these cannot be used", quizArea.x - 100, quizArea.y + 160);
-            font.draw(batch, "for a variable name in Java?", quizArea.x - 100, quizArea.y + 140);
-            font.draw(batch, "Answer with your keyboard", quizArea.x - 100, quizArea.y + 120);
-            font.draw(batch, "[A] Identifier & Keyword", quizArea.x - 60, quizArea.y + 40);
-            font.draw(batch, "[B] identifier", quizArea.x - 60, quizArea.y);
-            font.draw(batch, "[C] Keyword,", quizArea.x - 60, quizArea.y - 40);
-            font.draw(batch, "[D] None of these", quizArea.x - 60, quizArea.y - 80);
+            font.draw(batch, "Which of these cannot be used", quizArea.x , quizArea.y + 160);
+            font.draw(batch, "for a variable name in Java?", quizArea.x , quizArea.y + 140);
+            font.draw(batch, "Answer with your keyboard", quizArea.x , quizArea.y + 120);
+            font.draw(batch, "[A] Identifier & Keyword", quizArea.x , quizArea.y + 40);
+            font.draw(batch, "[B] identifier", quizArea.x , quizArea.y);
+            font.draw(batch, "[C] Keyword,", quizArea.x , quizArea.y - 40);
+            font.draw(batch, "[D] None of these", quizArea.x , quizArea.y - 80);
         }
 
         if (resultTimer > 0) {
-            font.draw(batch, resultText, quizArea.x - 100, quizArea.y + 160);
+            font.draw(batch, resultText, quizArea.x , quizArea.y + 160);
         }
     }
 
