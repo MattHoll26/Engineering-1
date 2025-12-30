@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /**
- * 
+ *
  */
 
 public class TutorialScreen implements Screen {
@@ -21,7 +21,7 @@ public class TutorialScreen implements Screen {
     private FitViewport viewport;
 
     private final int MENU_WIDTH = 790;
-	private final int MENU_HEIGHT = 480;
+    private final int MENU_HEIGHT = 480;
 
     public TutorialScreen(MyGame game) {
         this.game = game;
@@ -40,8 +40,8 @@ public class TutorialScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		camera.update();
-		batch.setProjectionMatrix(camera.combined);    
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
         //draw the image to fill the screen
@@ -50,10 +50,10 @@ public class TutorialScreen implements Screen {
 
         //once space bar is pressed load the maze game
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-		    game.setScreen(new GameScreen(game));
+            game.setScreen(new NameScreen(game));
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-		    Gdx.app.exit(); //user can go back to the start menu if they choose
-		}
+            Gdx.app.exit(); //user can go back to the start menu if they choose
+        }
     }
 
     @Override
