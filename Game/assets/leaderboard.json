@@ -11,6 +11,11 @@
 }
 {
 	class: io.github.some_example_name.Save_Leaderboard$ScoreEntry
+	fullName: MATT
+	score: 441
+}
+{
+	class: io.github.some_example_name.Save_Leaderboard$ScoreEntry
 	fullName: AB
 	score: 438
 }
@@ -38,5 +43,10 @@
 	class: io.github.some_example_name.Save_Leaderboard$ScoreEntry
 	fullName: EE
 	score: 388
+}
+{
+	class: io.github.some_example_name.Save_Leaderboard$ScoreEntry
+	fullName: M
+	score: 337
 }
 ]
