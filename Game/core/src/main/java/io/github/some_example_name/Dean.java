@@ -34,6 +34,14 @@ public class Dean {
 		this.velocity = new Vector2();
 	}
 
+    public void setSpeed(float newSpeed) {
+        this.speed = newSpeed;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
 	/**
 	 * Update position of dean to get closer to player's new position.
 	 * @param delta Time elapsed since last update.
@@ -83,6 +91,9 @@ public class Dean {
 			position.set(690, 560);
 		}
 	}
+
+
+
 
 	/**
 	 * Convenience method to be called by the game screen's <code> render()

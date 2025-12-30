@@ -1542,10 +1542,10 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="35" name="Events" locked="1">
+ <objectgroup id="35" name="Events">
   <object id="1" name="BusTicket" x="262.072" y="567.949"/>
   <object id="3" name="Bus" x="70.75" y="32.75" width="159" height="70.75"/>
   <object id="5" name="Water" x="736.045" y="652.091" width="10.5" height="130.045"/>
-  <object id="10" name="Questionaire" x="852" y="164" width="38.6667" height="116"/>
+  <object id="10" name="Questionnaire" x="852" y="164" width="38.6667" height="116"/>
  </objectgroup>
 </map>

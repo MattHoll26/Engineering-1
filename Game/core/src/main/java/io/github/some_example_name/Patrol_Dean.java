@@ -35,6 +35,14 @@ public class Patrol_Dean {
         this.texture = new Texture("Dean-front.png"); // reuse same sprite
     }
 
+    public void setSpeed(float newSpeed) {
+        this.speed = newSpeed;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
     /**
      * Move up/down each frame, bouncing at minY/maxY.
      */

@@ -1,6 +1,5 @@
 package io.github.some_example_name;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -66,6 +65,9 @@ public class GameScreen implements Screen {
     private Patrol_Dean patrolDean1;
     private Patrol_Dean patrolDean2;
     private Patrol_Dean patrolDean3;
+    private Patrol_Dean extraDean;
+
+    private Questionnaire questionnaire;
 
     private NPC friend;
     private int timesCaughtByDean = 0;
@@ -92,6 +94,11 @@ public class GameScreen implements Screen {
             "Events", // same object layer as Bus & BusTicket
             560,      // respawn X (same as dean reset)
             180       // respawn Y
+        );
+
+        questionnaire = new Questionnaire(
+            tiledMap,
+            "Events" // same object layer as Bus & BusTicket and Drown
         );
 
 
@@ -128,8 +135,6 @@ public class GameScreen implements Screen {
         if (busObject != null && busObject instanceof RectangleMapObject) {
             this.busInteractionArea = ((RectangleMapObject) busObject).getRectangle();
         }
-
-
 
         uiSkin = new Skin(Gdx.files.internal("ui/uiskin.json"));
         uiStage = new Stage(new FitViewport(MAP_WIDTH, MAP_HEIGHT));
@@ -186,6 +191,13 @@ public class GameScreen implements Screen {
         patrolDean2.update(delta);
         patrolDean3.update(delta);
         dean.update(delta);
+        if (extraDean != null) {
+            extraDean.update(delta);
+            if (player.getPosition().dst(extraDean.getPosition()) < 16f) {
+                player.getPosition().set(560, 180);
+                timesCaughtByPatrol++;
+            }
+        }
 
         if (player.getPosition().dst(dean.getPosition()) < 16f) {
             player.getPosition().set(560, 180);
@@ -212,6 +224,10 @@ public class GameScreen implements Screen {
         tree.update(player, gameTimer, delta);
         extraTime.update(player, gameTimer, delta);
         labEquipment.update(player, delta);
+
+        if (questionnaire != null) {
+            questionnaire.update(player, this);
+        }
 
 
         if (busTicket != null) {
@@ -243,6 +259,7 @@ public class GameScreen implements Screen {
 
         mapRenderer.setView(camera);
         mapRenderer.render();
+
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -315,6 +332,15 @@ public class GameScreen implements Screen {
         patrolDean3.render(batch);
         dean.render(batch);
         friend.render(batch);
+        if (extraDean != null) {
+            extraDean.render(batch);
+        }
+
+        if (questionnaire != null) {
+            questionnaire.render(batch, font);
+        }
+
+
         player.render(batch);
 
         if (busTicket != null && busTicket.isCollected()) {
@@ -356,6 +382,10 @@ public class GameScreen implements Screen {
      * </ul>
      */
     private void handleInput() {
+        if (questionnaire != null && questionnaire.isPlayerFrozen()){
+            return; // freeze the character during the quiz
+        }
+
         float moveSpeed = 1f;
         if (locker != null && locker.isBoostActive()) {
             moveSpeed = 2f;
@@ -551,6 +581,21 @@ public class GameScreen implements Screen {
         friend.dispose();
         extraTime.dispose();
         if (busTicket != null) { busTicket.dispose(); }
+    }
+
+    public void freezeAllDeans() {
+        if (dean != null) dean.setSpeed(0f);
+        if (patrolDean1 != null) patrolDean1.setSpeed(0f);
+        if (patrolDean2 != null) patrolDean2.setSpeed(0f);
+        if (patrolDean3 != null) patrolDean3.setSpeed(0f);
+        if (extraDean != null) {
+            extraDean.setSpeed(0f);
+        }
+    }
+
+    public void spawnSecondDean() {
+        // Extra dean spawns in top-right area
+        extraDean = new Patrol_Dean(550, 450, 800, 600, this);
     }
 
     /** Unimplemented */
