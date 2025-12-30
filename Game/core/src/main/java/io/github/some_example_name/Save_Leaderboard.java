@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 public class Save_Leaderboard {
     private static final String Leaderboard_file = "leaderboard.json";
     private final Json leaderboardJSON = new Json();
-    private static final int maxScore = 10;
+    private static final int maxScore = 5;
 
     public static class ScoreEntry {
         public String fullName;

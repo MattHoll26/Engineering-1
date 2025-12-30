@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * <code> WinScreen </code> implements a static screen with a congratulation message, and
@@ -18,6 +19,8 @@ public class WinScreen implements Screen {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private BitmapFont font;
+    private Array<Achievement> achievements;
+    private int achievementYPos = 210;
 
 	//scoring system variables
 	private int finalScore;
@@ -32,11 +35,12 @@ public class WinScreen implements Screen {
 	 * @param timeRemaining Time remaining in seconds
 	 * @param totalPenalty
 	 */
-	public WinScreen(MyGame game, int finalScore, int timeRemaining, int totalPenalty) {
+	public WinScreen(MyGame game, int finalScore, int timeRemaining, int totalPenalty, Array<Achievement> achievements) {
 		this.game = game;
 		this.finalScore = finalScore;
 		this.timeRemaining = timeRemaining;
         this.totalPenalty = totalPenalty;
+        this.achievements = achievements;
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 640, 480);
@@ -60,9 +64,22 @@ public class WinScreen implements Screen {
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.begin();
-		font.draw(batch, "You Win!", 250, 350);
-		font.draw(batch, "Final Score = " + finalScore, 188, 310);
-		font.draw(batch, "Penalties = " + totalPenalty, 188, 270);
+		font.draw(batch, "You Win!", 100, 470);
+		font.draw(batch, "Final Score = " + finalScore, 100, 430);
+		font.draw(batch, "Penalties = " + totalPenalty, 100, 390);
+        font.draw(batch, "--- ACHIEVEMENTS UNLOCKED ---", 100, 350);
+
+        achievementYPos = 310;
+        if (achievements.size == 0) {
+            font.draw(batch, "No achievements earned.", 100, 330); // If the list is empty, they unlocked nothing.
+        } else for (Achievement achievement : achievements) {
+            // Draw the achievement
+            String achievementText = achievement.name + ": " + achievement.description + " (" + achievement.bonusScore + ")";
+            font.draw(batch, achievementText, 100, achievementYPos);
+            achievementYPos -= 20; // Move down
+            }
+
+
 		font.draw(batch, "Press SPACE to see the global leaderboard", 100, 150);
         font.draw(batch, "Press Enter to go back to the main menu", 100, 110);
         font.draw(batch, "Press Esc to QUIT", 100, 70);

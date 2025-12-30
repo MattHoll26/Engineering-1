@@ -19,6 +19,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.Array;
+
 
 /** <code> GameScreen </code> implements the main gameplay logic and rendering as one class,
  * to process user input, and redraw the frames and update the game asset states as
@@ -383,6 +385,40 @@ public class GameScreen implements Screen {
         uiStage.draw();
     }
 
+    public Array<Achievement> calculateAchievements() {
+        Array<Achievement> earnedAchievement = new Array<>();
+
+        // Hidden events hunter --> Collected ticket and used teleporter
+        if (busTicket != null && busTicket.isCollected() &&
+            labEquipment != null && labEquipment.teleportHappened()) {
+            earnedAchievement.add(new Achievement("Secret Hunter", "Found all hidden events", 100));
+        }
+
+        // Speedster --> Never caught by any Dean
+        if (timesCaughtByDean == 0 && timesCaughtByPatrol == 0) {
+            earnedAchievement.add(new Achievement("Speedster", "Never caught by a Dean", 150));
+        }
+
+        // Class Clown -->  more than 3 times
+        if (timesCaughtByDean + timesCaughtByPatrol >= 3) {
+            earnedAchievement.add(new Achievement("Class Clown", "Caught 3+ times", -50));
+        }
+
+        // Quiz Taker --> Attempted the Quiz (Pass or Fail)
+        if (questionnaire != null && questionnaire.isAnswered()) {
+            earnedAchievement.add(new Achievement("Quiz Taker", "Attempted the Technical Quiz", 50));
+        }
+
+        // Natural Barrier Victim --> Natural Barrier Victim  Drowned or hit obstacles
+        if (hasDrowned || (bush != null && bush.bushFall()) || (tree != null && tree.hitTree())) {
+            earnedAchievement.add(new Achievement("Natural Barrier Victim", "Hit an natural obstacle", -20));
+        }
+
+        return earnedAchievement;
+    }
+
+
+
     /**
      * Move the player and interacting with the world and menus every frame when
      * the corrosponding keys are pressed:
@@ -446,15 +482,25 @@ public class GameScreen implements Screen {
         }
 
         else if (canEndGame && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-            int finalScore = calculateFinalScore();
+            int baseScore = calculateFinalScore();
             int totalPenalty = calculateTotalPenalty();
             int timeRemaining = (int) gameTimer.getTimeLeft();
             int timesCaught = getTimesCaughtByDean();
-            String playerName = game.getPlayerFullName(); // get the full player name for the leaderboard
 
+            Array<Achievement> achievements = calculateAchievements();
+
+            int totalAchievementScore = 0;
+            for (Achievement currentAchievement : achievements) {
+                // Add the specific bonus score (positive or negative) of the current achievement to our total
+                totalAchievementScore = totalAchievementScore + currentAchievement.bonusScore;
+            }
+
+            int finalScore = Math.max(0, baseScore + totalAchievementScore);
+
+            String playerName = game.getPlayerFullName(); // get the full player name for the leaderboard
             Save_Leaderboard leaderboard = new Save_Leaderboard();
             leaderboard.addScore(playerName, finalScore); // add score to the leaderboard if its in the top scores
-            game.setScreen(new WinScreen(game, finalScore, timeRemaining, totalPenalty));
+            game.setScreen(new WinScreen(game, finalScore, timeRemaining, totalPenalty, achievements));
         }
 
         float oldX = player.getPosition().x;
@@ -567,7 +613,6 @@ public class GameScreen implements Screen {
     public int getTimesCaughtByDean() {
         return timesCaughtByDean;
     }
-
 
     /**
      * Dipose of all assets and UI elements when game screen is left i.e
