@@ -1,0 +1,37 @@
+[
+{
+	class: io.github.some_example_name.Save_Leaderboard$ScoreEntry
+	fullName: ABDUL FOFANAH
+	score: 441
+}
+{
+	class: io.github.some_example_name.Save_Leaderboard$ScoreEntry
+	fullName: ABDUL TEST
+	score: 441
+}
+{
+	class: io.github.some_example_name.Save_Leaderboard$ScoreEntry
+	fullName: AB
+	score: 438
+}
+{
+	class: io.github.some_example_name.Save_Leaderboard$ScoreEntry
+	fullName: ABDUL
+	score: 424
+}
+{
+	class: io.github.some_example_name.Save_Leaderboard$ScoreEntry
+	fullName: CT
+	score: 416
+}
+{
+	class: io.github.some_example_name.Save_Leaderboard$ScoreEntry
+	fullName: T
+	score: 405
+}
+{
+	class: io.github.some_example_name.Save_Leaderboard$ScoreEntry
+	fullName: EE
+	score: 388
+}
+]
