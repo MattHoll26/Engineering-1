@@ -230,10 +230,7 @@ public class GameScreen implements Screen {
                     16
                 );
 
-                if (
-                    busInteractionArea != null &&
-                        playerRect.overlaps(busInteractionArea)
-                ) {
+                if (busInteractionArea != null && playerRect.overlaps(busInteractionArea)) {
                     canEndGame = true;
                 } else {
                     canEndGame = false;
@@ -412,8 +409,10 @@ public class GameScreen implements Screen {
             int totalPenalty = calculateTotalPenalty();
             int timeRemaining = (int) gameTimer.getTimeLeft();
             int timesCaught = getTimesCaughtByDean();
+            String playerName = game.getPlayerFullName(); // get the full player name for the leaderboard
 
-
+            Save_Leaderboard leaderboard = new Save_Leaderboard();
+            leaderboard.addScore(playerName, finalScore); // add score to the leaderboard if its in the top scores
             game.setScreen(new WinScreen(game, finalScore, timeRemaining, totalPenalty));
         }
 

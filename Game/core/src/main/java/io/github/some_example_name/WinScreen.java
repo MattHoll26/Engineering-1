@@ -43,7 +43,7 @@ public class WinScreen implements Screen {
 
 		batch = new SpriteBatch();
 		font = new BitmapFont();
-		font.getData().setScale(2.5f);
+		font.getData().setScale(1.5f);
 	}
 
 	/**
@@ -63,12 +63,20 @@ public class WinScreen implements Screen {
 		font.draw(batch, "You Win!", 250, 350);
 		font.draw(batch, "Final Score = " + finalScore, 188, 310);
 		font.draw(batch, "Penalties = " + totalPenalty, 188, 270);
-		font.draw(batch, "Press SPACE to return to menu", 100, 150);
+		font.draw(batch, "Press SPACE to see the global leaderboard", 100, 150);
+        font.draw(batch, "Press Enter to go back to the main menu", 100, 110);
+        font.draw(batch, "Press Esc to QUIT", 100, 70);
 		batch.end();
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-		    game.setScreen(new MenuScreen(game));
+		    game.setScreen(new LeaderboardScreen(game));
 		}
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+            game.setScreen(new MenuScreen(game));
+        }
+        else if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            Gdx.app.exit();
+        }
 	}
 
    	/**
