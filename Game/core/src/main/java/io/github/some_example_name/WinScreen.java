@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Array;
  * allows player to then quit or replay game.
  * @see com.badlogic.gdx.Screen Screen.
  */
+
 public class WinScreen implements Screen {
 	private final MyGame game;
 	private OrthographicCamera camera;
@@ -27,14 +28,15 @@ public class WinScreen implements Screen {
 	private int timeRemaining;
 	private int totalPenalty;
 
-	/**
-	 * Constructor for <code> WinScreen </code>, using the game creator in
-	 * <code> MyGame </code> to create menu screen.
-	 * @param game Game creator.
-	 * @param finalScore The calculated final score
-	 * @param timeRemaining Time remaining in seconds
-	 * @param totalPenalty
-	 */
+    /**
+     * Constructor for <code> WinScreen </code>, using the game creator in
+     * <code> MyGame </code> to create menu screen.
+     * @param game Game creator.
+     * @param finalScore The calculated final score.
+     * @param timeRemaining Time remaining in seconds.
+     * @param totalPenalty The total score deduction from penalties.
+     * @param achievements The list of achievements unlocked by the player.
+     */
 	public WinScreen(MyGame game, int finalScore, int timeRemaining, int totalPenalty, Array<Achievement> achievements) {
 		this.game = game;
 		this.finalScore = finalScore;
