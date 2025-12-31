@@ -83,7 +83,8 @@ public class NameScreen implements Screen {
         batch.begin();
 
         // Name display
-        font.draw(batch, "Enter Your Full Name (You must type a character) for the Leaderboard:", 50, 440);
+        font.draw(batch, "Enter Your Full Name:", 50, 460);
+        font.draw(batch, "([MANDATORY] You must type at least a character in First Name)", 50, 430);
         font.draw(batch, (typingFirstName ? "--> " : "  ") + "First: " + firstName, 50, 410);
         font.draw(batch, (!typingFirstName ? "--> " : "  ") + "Last:  " + lastName, 50, 380);
 

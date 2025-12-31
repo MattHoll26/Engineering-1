@@ -274,11 +274,11 @@ public class GameScreen implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
-//switch to screen coordinates for the UI elements
+        //switch to screen coordinates for the UI elements
         batch.setProjectionMatrix(uiStage.getCamera().combined);
 
-//draw the three events encountered checklists in the top left hand corner of the screen
-//events get updates using a ternary operator which is like a condensed if/else statement -> it is set out like: (condition ? vali_if_true : value_if_false)
+        //draw the three events encountered checklists in the top left hand corner of the screen
+        //events get updates using a ternary operator which is like a condensed if/else statement -> it is set out like: (condition ? vali_if_true : value_if_false)
 
         int positiveEvents = 0;
         if (locker.lockerSearched()) positiveEvents++;
@@ -305,7 +305,7 @@ public class GameScreen implements Screen {
 
 
 
-//switch back to the game coordinates for game objects
+        //switch back to the game coordinates for game objects
         batch.setProjectionMatrix(camera.combined);
 
         if (busTicket != null) {
@@ -330,7 +330,7 @@ public class GameScreen implements Screen {
             );
         }
 
-//Messages will appear on top by rendering player last.
+        // The messages will appear on top by rendering player last.
         locker.render(batch);
         bush.render(batch);
         tree.render(batch);
@@ -362,7 +362,7 @@ public class GameScreen implements Screen {
 
         batch.end();
 
-// Decrement the timer only if the game is not paused
+        // Decrement the timer only if the game is not paused
         if (!isPaused) {
             gameTimer.decrementTimer(delta);
         }
@@ -392,6 +392,16 @@ public class GameScreen implements Screen {
         if (busTicket != null && busTicket.isCollected() &&
             labEquipment != null && labEquipment.teleportHappened()) {
             earnedAchievement.add(new Achievement("Secret Hunter", "Found all hidden events", 100));
+        }
+
+        // All Positive Events
+        if (locker.lockerSearched() && extraTime.gainedTime() && freezeDean.isUsed()) {
+            earnedAchievement.add(new Achievement("Positive Master", "Found all positive events", 80));
+        }
+
+        // All Negative Events
+        if (timesCaughtByDean > 0 && timesCaughtByPatrol > 0 && hasDrowned && bush.bushFall() && tree.hitTree()) {
+            earnedAchievement.add(new Achievement("Masochist", "Found all negative events", -30));
         }
 
         // Speedster --> Never caught by any Dean
