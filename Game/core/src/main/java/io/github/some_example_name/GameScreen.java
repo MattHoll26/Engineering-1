@@ -404,6 +404,14 @@ public class GameScreen implements Screen {
             earnedAchievement.add(new Achievement("Masochist", "Found all negative events", -30));
         }
 
+        // All Events
+        if (locker.lockerSearched() && extraTime.gainedTime() && freezeDean.isUsed() &&
+            timesCaughtByDean > 0 && timesCaughtByPatrol > 0 && hasDrowned &&
+            bush.bushFall() && tree.hitTree() && busTicket.isCollected() &&
+            labEquipment.teleportHappened() && questionnaire.isAnswered()) {
+            earnedAchievement.add(new Achievement("Completionist", "Found all Events!", 200));
+        }
+
         // Speedster --> Never caught by any Dean
         if (timesCaughtByDean == 0 && timesCaughtByPatrol == 0) {
             earnedAchievement.add(new Achievement("Speedster", "Never caught by a Dean", 150));
