@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="60" height="60" tilewidth="16" tileheight="16" infinite="0" nextlayerid="48" nextobjectid="17">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="60" height="60" tilewidth="16" tileheight="16" infinite="0" nextlayerid="49" nextobjectid="51">
  <tileset firstgid="1" name="ground" tilewidth="16" tileheight="16" tilecount="18" columns="3">
   <image source="../Cliff_Tile.png" width="48" height="96"/>
  </tileset>
@@ -1484,5 +1484,17 @@
   <object id="5" name="Water" x="736.045" y="652.091" width="10.5" height="130.045"/>
   <object id="10" name="Questionnaire" x="694" y="102.5" width="191.667" height="54"/>
   <object id="16" name="Materials" x="113.333" y="562" width="62" height="30.6667"/>
+ </objectgroup>
+ <objectgroup id="48" name="Bounds">
+  <object id="20" name="Left Map Bound" x="-0.125" y="-2.66667" width="9.45833" height="966.667"/>
+  <object id="22" name="Top Map Bound" x="9.33333" y="-0.416667" width="950.667" height="13.75"/>
+  <object id="25" name="Right Map Bound" x="949.333" y="10.6667" width="10.6667" height="949.152"/>
+  <object id="29" name="Bottom Map Bound" x="12" y="946.667" width="937.333" height="13.4545"/>
+  <object id="42" name="Block Off Water 1" x="896.667" y="17.3333" width="50.6667" height="20"/>
+  <object id="43" x="1144" y="-21.3333"/>
+  <object id="44" name="Block off water 2" x="933.25" y="38.25" width="14.5" height="42.25"/>
+  <object id="45" name="Block Off Water 3" x="911.5" y="73" width="22" height="13.5"/>
+  <object id="47" name="Bus Boundary 1" x="119" y="99.5" width="113.75" height="11.75"/>
+  <object id="48" name="Bus Boundary 2" x="227.5" y="87.5" width="16" height="24.5"/>
  </objectgroup>
 </map>

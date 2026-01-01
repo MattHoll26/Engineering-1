@@ -180,6 +180,7 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         handleInput();
+
         // If paused, render a frozen frame and return early
         if (isPaused) {
             // Render the current frame
@@ -303,7 +304,7 @@ public class GameScreen implements Screen {
         batch.setProjectionMatrix(uiStage.getCamera().combined);
 
         //draw the three events encountered checklists in the top left hand corner of the screen
-        //events get updates using a ternary operator which is like a condensed if/else statement -> it is set out like: (condition ? vali_if_true : value_if_false)
+        //events get updates using a ternary operator which is like a condensed if/else statement -> it is set out like: (condition ? value_if_true : value_if_false)
 
         int positiveEvents = 0;
         if (locker.lockerSearched()) positiveEvents++;
@@ -481,7 +482,7 @@ public class GameScreen implements Screen {
      * <ul>
      * <li> WASD - Move Character Up/Left/Down/Right.</li>
      * <li> E - Interact with items.</li>
-     * <li> Esc - Pause Game.</li>
+     * <li> P - Pause Game.</li>
      * </ul>
      */
     private void handleInput() {
@@ -563,15 +564,15 @@ public class GameScreen implements Screen {
         float oldX = player.getPosition().x;
         float oldY = player.getPosition().y;
 
-        if (!isCellBlocked(newX, newY)) {
+        if (!isCellBlocked(newX, newY) && !isBounds(newX, newY)) {
             player.getPosition().set(newX, newY);
         }
 
-        else if (!isCellBlocked(newX, oldY)) {
+        else if (!isCellBlocked(newX, oldY) && !isBounds(newX, oldY)) {
             player.getPosition().set(newX, oldY);
         }
 
-        else if (!isCellBlocked(oldX, newY)) {
+        else if (!isCellBlocked(oldX, newY) && !isBounds(oldX, newY)) {
             player.getPosition().set(oldX, newY);
         }
 
@@ -636,6 +637,36 @@ public class GameScreen implements Screen {
         return false;
     }
 
+
+    /**
+     * Checks if the player's future position overlaps with the "Bounds" object layer of the Tiled map.
+     * @param x The future x-coordinate of the player.
+     * @param y The future y-coordinate of the player.
+     * @return {@code true} if a collision is detected (movement blocked), {@code false} otherwise.
+     */
+    public boolean isBounds(float x, float y) {
+        // Get the bounds layer unless it does not exist (then return false which is no collision)
+        if (tiledMap.getLayers().get("Bounds") == null) {
+            return false;
+        }
+
+        // Get the player width and height to create a temporary collision object
+        float playerWidth = player.currentFrame.getRegionWidth();
+        float playerHeight = player.currentFrame.getRegionHeight();
+        Rectangle playerFutureRect = new Rectangle(x, y, playerWidth, playerHeight);
+
+        // Check all the objects in the Bounds layer
+        MapObjects wallBounds = tiledMap.getLayers().get("Bounds").getObjects();
+        for (RectangleMapObject wallObject : wallBounds.getByType(RectangleMapObject.class)) {
+            Rectangle wallHitbox = wallObject.getRectangle();
+
+            // Register if the player hit the wall
+            if (playerFutureRect.overlaps(wallHitbox)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Calculate the player's base score for this run.
