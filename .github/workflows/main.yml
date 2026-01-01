@@ -1,0 +1,42 @@
+name: LibGDX Java CI with Gradle
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-test-docs:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./Game
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java version 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+
+      - name: Make the Gradle wrapper executable
+        run: chmod +x ./gradlew
+
+      - name: Build
+        run: ./gradlew build
+
+      - name: Run tests
+        run: ./gradlew test
+
+      - name: Generate Javadoc
+        run: ./gradlew javadoc
+
+      - name: Create JAR [lwjgl3]
+        run: ./gradlew lwjgl3:dist
