@@ -8,6 +8,13 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.*;
 
 
+/**
+ * <code>Questionnaire</code> it represent a quiz event area which has been loaded from the Tiled map.
+ * When the player enters the quiz area they can press <code>E</code> to start the quiz.
+ * The player must answer using keys <code>A</code>, <code>B</code>, <code>C</code>, or <code>D</code>.
+ * A correct answer rewards the player by freezing all deans, while an incorrect answer
+ * spawns an additional dean as a penalty.
+ */
 public class Questionnaire {
     private Rectangle quizArea;
     private boolean discovered = false;
@@ -18,8 +25,14 @@ public class Questionnaire {
     private String resultText = "";
     private float resultTimer = 0f;
 
+    /**
+     * Constructor for <code>Questionnaire</code>, loading the questionnaire area rectangle
+     * from an object layer in a Tiled map.
+     * @param tiledMap The Tiled map containing the quiz object
+     * @param layerName The Name of the object layer containing the questionnaire area
+     */
     public Questionnaire(TiledMap tiledMap, String layerName) {
-        //
+        // Find the questionnaire object in the specified tiled map layer
         for (MapObject obj : tiledMap.getLayers().get(layerName).getObjects()) {
             if (obj instanceof RectangleMapObject && "Questionnaire".equalsIgnoreCase(obj.getName())) {
                 quizArea = ((RectangleMapObject) obj).getRectangle();
@@ -28,6 +41,17 @@ public class Questionnaire {
         }
     }
 
+    /**
+     * Update the quiz event each frame. Handles:
+     * <ul>
+     * <li>Detecting when the player enters the quiz area</li>
+     * <li>Starting the quiz when <code>E</code> is pressed</li>
+     * <li>Processing answer keys <code>A-D</code></li>
+     * <li>Managing the post-answer result message timer</li>
+     * </ul>
+     * @param player The player character used for collision detection
+     * @param gameScreen The game screen used to trigger rewards/penalties --> freeze or spawn deans
+     */
     public void update(Player player, GameScreen gameScreen) {
         if (quizArea == null || answered) return;
 
@@ -41,44 +65,52 @@ public class Questionnaire {
         if (playerRect.overlaps(quizArea)) {
             discovered = true;
 
+            // Press E to begin the questionnaire, freeze the player while answering
             if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
                 showQuiz = true;
                 playerFrozen = true;
             }
 
             if (showQuiz) {
+                // Incorrect options spawn an extra dean
                 if (Gdx.input.isKeyJustPressed(Input.Keys.A)) {
                     gameScreen.spawnSecondDean(); // FAIL
                     questionSuccess = false;
-                    endQuiz();
+                    endQuestionnaire();
                 } if (Gdx.input.isKeyJustPressed(Input.Keys.B)) {
                     gameScreen.spawnSecondDean(); // FAIL
                     questionSuccess = false;
-                    endQuiz();
+                    endQuestionnaire();
                 }
-                if (Gdx.input.isKeyJustPressed(Input.Keys.C)) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.C)) { // Correct option freezes all deans
                     gameScreen.freezeAllDeans();  // PASS
                     questionSuccess = true;
-                    endQuiz();
+                    endQuestionnaire();
                 }
                 else if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
                     gameScreen.spawnSecondDean(); // FAIL
                     questionSuccess = false;
-                    endQuiz();
+                    endQuestionnaire();
                 }
             }
         }
 
+        // Once the question has been answered allow player movement again
         if (answered) {
             playerFrozen = false;
         }
 
+        // decrement the result timer if its active and more than 0
         if (resultTimer > 0) {
             resultTimer -= Gdx.graphics.getDeltaTime();
         }
     }
 
-    private void endQuiz() {
+    /**
+     * End the questionnaire and save the result. The questionnaire is answered
+     * the player is unfrozen, and sets a short result message.
+     */
+    private void endQuestionnaire() {
         showQuiz = false;
         answered = true;
         playerFrozen = false;
@@ -86,10 +118,19 @@ public class Questionnaire {
         resultTimer = 3f;
     }
 
+    /**
+     * Return whether the player should be frozen.
+     * @return True if player movement should be blocked, false otherwise
+     */
     public boolean isPlayerFrozen() {
         return playerFrozen;
     }
 
+    /**
+     * Render the quiz prompt, questionnaire questions, and the result text.
+     * @param batch SpriteBatch used to draw text
+     * @param font Font used to render quiz UI text
+     */
     public void render(SpriteBatch batch, BitmapFont font) {
         if (quizArea == null) return;
 
@@ -112,6 +153,10 @@ public class Questionnaire {
         }
     }
 
+    /**
+     * Return whether the questionnaire has been answered.
+     * @return True if the questionnaire is complete, false otherwise
+     */
     public boolean isAnswered() {
         return answered;
     }

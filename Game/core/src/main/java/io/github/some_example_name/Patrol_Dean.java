@@ -6,8 +6,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * Enemy that patrols up and down between two Y bounds.
- *
+ * <code>Patrol_Dean</code> represents a Dean enemy that patrols vertically
+ * between two Y axis bounds. The dean reverses direction when reaching
+ * its limits or when colliding with a blocked tile.
  */
 public class Patrol_Dean {
 
@@ -26,6 +27,13 @@ public class Patrol_Dean {
 
     /**
      * Create a dean at a fixed X, starting Y, that moves between minY and maxY.
+     *
+     * @param startX Initial horizontal position
+     * @param startY Initial vertical position
+     * @param minY Minimum Y boundary for patrol
+     * @param maxY Maximum Y boundary for patrol
+     * @param gameScreen Game screen used for collision checks
+     *
      */
     public Patrol_Dean(float startX, float startY, float minY, float maxY, GameScreen gameScreen) {
         this.position = new Vector2(startX, startY);
@@ -35,16 +43,25 @@ public class Patrol_Dean {
         this.texture = new Texture("Dean-front.png"); // reuse same sprite
     }
 
+    /**
+     * Set the movement speed of the patrol dean.
+     * @param newSpeed New speed value
+     */
     public void setSpeed(float newSpeed) {
         this.speed = newSpeed;
     }
 
+    /**
+     * Return the current movement speed of the patrol dean.
+     * @return Current speed value
+     */
     public float getSpeed() {
         return speed;
     }
 
     /**
      * Move up/down each frame, bouncing at minY/maxY.
+     * @param delta Time elapsed since the last frame
      */
     public void update(float delta) {
         float newY = position.y + (direction * speed);
@@ -67,14 +84,29 @@ public class Patrol_Dean {
         }
     }
 
+    /**
+     * Render the patrol dean sprite.
+     * @param batch SpriteBatch used to draw the sprite
+     */
     public void render(SpriteBatch batch) {
         batch.draw(texture, position.x, position.y, 16, 16);
     }
 
+    /**
+     * Return the current position of the patrol dean.
+     * @return 2D vector representing the dean's position
+     */
     public Vector2 getPosition() { return position; }
 
+    /**
+     * Return the collision bounds of the patrol dean.
+     * @return Rectangle representing the collision area
+     */
     public Rectangle getBounds() { return new Rectangle(position.x, position.y, 16, 16); }
 
+    /**
+     * Dispose of the patrol dean's texture when no longer needed.
+     */
     public void dispose() {
         texture.dispose();
     }

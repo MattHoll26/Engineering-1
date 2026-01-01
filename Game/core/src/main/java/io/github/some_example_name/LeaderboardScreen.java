@@ -9,6 +9,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * <code> LeaderboardScreen </code> implements a screen that displays the top
+ * scores stored in the local leaderboard file.
+ * The player can return to the main menu or quit the game from this screen.
+ *
+ * @see com.badlogic.gdx.Screen Screen
+ */
 public class LeaderboardScreen implements Screen {
     private final MyGame game;
     private OrthographicCamera camera;
@@ -18,6 +25,12 @@ public class LeaderboardScreen implements Screen {
     private final int MENU_WIDTH = 640;
     private final int MENU_HEIGHT = 480;
 
+    /**
+     * Constructor for <code> LeaderboardScreen </code>, creating the camera,
+     * render assets, and loading the stored leaderboard scores.
+     *
+     * @param game The Game creator which is used to switch screens.
+     */
     public LeaderboardScreen(MyGame game) {
         this.game = game;
         camera = new OrthographicCamera();
@@ -28,6 +41,14 @@ public class LeaderboardScreen implements Screen {
         leaderboard = new Save_Leaderboard();
     }
 
+    /**
+     * Render the leaderboard screen and process user input.
+     * Displays the top 5 scores currently stored and provides controls
+     * to return to the main menu or quit.
+     *
+     * @param delta Time in seconds since last frame finished rendering.
+     * @see com.badlogic.gdx.Screen#render(float) Screen.render()
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
@@ -55,25 +76,24 @@ public class LeaderboardScreen implements Screen {
         }
     }
 
+    /**
+     * Dispose of leaderboard screen assets when the screen is exited.
+     *
+     * @see com.badlogic.gdx.Screen#dispose() Screen.dispose()
+     */
     @Override public void dispose() {
         batch.dispose();
         font.dispose();
     }
 
-    // Other Screen methods empty
-    @Override public void show() {
-
-    }
-    @Override public void resize(int width, int height) {
-
-    }
-    @Override public void pause() {
-
-    }
-    @Override public void resume() {
-
-    }
-    @Override public void hide() {
-
-    }
+    /** Unimplemented. */
+    @Override public void show() {}
+    /** Unimplemented. */
+    @Override public void resize(int width, int height) {}
+    /** Unimplemented. */
+    @Override public void pause() {}
+    /** Unimplemented. */
+    @Override public void resume() {}
+    /** Unimplemented. */
+    @Override public void hide() {}
 }

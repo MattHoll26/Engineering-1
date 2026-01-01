@@ -53,7 +53,7 @@ public class WinScreen implements Screen {
 	}
 
 	/**
-	 * Process input then render new frame, including dialog, for the win menu.
+	 * Process the input and then render the new frame for the win menu.
 	 * @param delta Time in seconds since last frame finished rendering.
 	 * @see com.badlogic.gdx.Screen#render Screen.render().
 	 */
@@ -118,15 +118,11 @@ public class WinScreen implements Screen {
 
 	/** Unimplemented */
 	@Override
-
-	/** Unimplemented */
-	public void pause() {}
+    public void pause() {}
 
 	/** Unimplemented */
 	@Override
-
-	/** Unimplemented */
-	public void resume() {}
+    public void resume() {}
 
 	/** Unimplemented */
 	@Override

@@ -13,16 +13,21 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Drown {
 
+
+    /** Rectangle defining the water hazard area */
     private Rectangle waterArea;
+
+    /** Position the player is reset to after drowning */
     private Vector2 respawnPosition;
 
     /**
-     * Constructor for <code>Drown</code>.
+     * Constructor for <code>Drown</code>, loading the water hazard
+     * from a specified object layer in a Tiled map.
      *
-     * @param tiledMap
-     * @param layerName //Events
-     * @param respawnX
-     * @param respawnY
+     * @param tiledMap Tiled map containing the water hazard object
+     * @param layerName Name of the object layer containing the water area
+     * @param respawnX X-coordinate to respawn the player at
+     * @param respawnY Y-coordinate to respawn the player at
      */
     public Drown(TiledMap tiledMap, String layerName, float respawnX, float respawnY) {
 
@@ -39,7 +44,10 @@ public class Drown {
     }
 
     /**
-     * Check if player has entered water and respawn
+     * Check if the player has entered the water hazard and reset their position if so.
+     *
+     * @param player Player character to test for collision
+     * @return True if the player drowned and was respawned, false otherwise
      */
     public boolean update(Player player) {
         if (waterArea == null) return false;

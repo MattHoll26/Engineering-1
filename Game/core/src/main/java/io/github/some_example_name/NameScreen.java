@@ -9,6 +9,24 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+/**
+ * <code> NameScreen </code> implements a name entry screen using a simple
+ * on-screen keyboard. The player enters a first name (mandatory) and an optional
+ * last name, then starts the game.
+ *
+ * <p>
+ * Input options:
+ * <ul>
+ * <li>Mouse click - selects keys on the on-screen keyboard.</li>
+ * <li>TAB - switches between first name and last name.</li>
+ * <li>SPACE - confirms and continues (first name must not be empty).</li>
+ * <li>DEL / BACKSPACE - deletes the last character of the active field.</li>
+ * <li>ESC - returns to the tutorial screen.</li>
+ * </ul>
+ * </p>
+ *
+ * @see com.badlogic.gdx.Screen Screen
+ */
 public class NameScreen implements Screen {
     private final MyGame game;
     private OrthographicCamera camera;
@@ -20,7 +38,10 @@ public class NameScreen implements Screen {
     private String lastName = "";
     private boolean typingFirstName = true;
 
-    // Keyboard String
+    /**
+     * Layout for the on-screen keyboard. Each string represents the label/action
+     * for a key.
+     */
     private final String[][] onscreenKeyboard = {
         {"A", "B", "C", "D", "E", "F", "G", "H"},
         {"I", "J", "K", "L", "M", "N", "O", "P"},
@@ -35,12 +56,23 @@ public class NameScreen implements Screen {
     private final int NAME_MENU_WIDTH = 640;
     private final int NAME_MENU_HEIGHT = 480;
 
+    /**
+     * Constructor for <code> NameScreen </code>, creating the camera, rendering objects,
+     * and generating the on-screen keyboard layout.
+     *
+     * @param game Game creator used to store the player's name and change screens
+     */
     public NameScreen(MyGame game) {
         this.game = game;
         screenRender();
         createKeyboard();
     }
 
+
+    /**
+     * Initialise core rendering objects used by this screen, including the camera,
+     * batch, font, viewport, and the keyboard button texture.
+     */
     private void screenRender() {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, NAME_MENU_WIDTH, NAME_MENU_HEIGHT);
@@ -58,6 +90,10 @@ public class NameScreen implements Screen {
         whiteButton.dispose();
     }
 
+    /**
+     * Create the hitboxes for each key on the on-screen keyboard.
+     * The positions are generated in a grid formation.
+     */
     private void createKeyboard() {
         keyboardRects = new Rectangle[onscreenKeyboard.length][onscreenKeyboard[0].length];
         int startX = 50, startY = 255;
@@ -73,6 +109,15 @@ public class NameScreen implements Screen {
         }
     }
 
+
+    /**
+     * Render the name screen, including the on-screen keyboard and current input.
+     * In addition, it processes the mouse clicks and
+     * the key shortcuts for editing/confirming the name.
+     *
+     * @param delta Time in seconds since the last frame finished rendering
+     * @see com.badlogic.gdx.Screen#render Screen.render().
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
@@ -90,8 +135,8 @@ public class NameScreen implements Screen {
 
         // Instructions
         font.draw(batch, "Use the Onscreen Keyboard for name -> TAB = switch | " +
-            "Space = done | " +
-            "Esc = back", 50, 360);
+                             "Space = done | " +
+                             "Esc = back", 50, 360);
 
         // Keyboard
         font.draw(batch, "KEYBOARD:", 50, 330);
@@ -147,6 +192,12 @@ public class NameScreen implements Screen {
         }
     }
 
+    /**
+     * This handles the action for a key press from the on-screen keyboard.
+     * Supports deleting, switching fields, confirming, or appending letters.
+     *
+     * @param action Button label/action pressed
+     */
     private void handleKeyPress(String action) {
         if (action.equals("DEL")) {
             if (typingFirstName && !firstName.isEmpty()) {
@@ -166,13 +217,24 @@ public class NameScreen implements Screen {
         }
     }
 
+    /**
+     * Resize the viewport when the window size changes.
+     *
+     * @param width Current width of window
+     * @param height Current height of window
+     * @see com.badlogic.gdx.Screen#resize Screen.resize().
+     */
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height, true);
 
     }
 
-
+    /**
+     * Dispose of screen assets when leaving the name screen.
+     *
+     * @see com.badlogic.gdx.Screen#dispose Screen.dispose()
+     */
     @Override public void dispose() {
         batch.dispose(); font.dispose();
         if (keyboardTexture != null) keyboardTexture.dispose();

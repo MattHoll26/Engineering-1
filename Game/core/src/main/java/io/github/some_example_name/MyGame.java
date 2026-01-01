@@ -18,20 +18,43 @@ public class MyGame extends Game {
         setScreen(new MenuScreen(this));
     }
 
+    /**
+     * Set the player's name which is used for leaderboard display.
+     * The whitespace is trimmed and null values are handled.
+     *
+     * @param firstName The player's first name
+     * @param lastName The player's last name
+     */
     public void setPlayerName(String firstName, String lastName) {
         this.PlayerFirstName = firstName != null ? firstName.trim() : "";
         this.PlayerLastName = lastName != null ? lastName.trim() : "";
 
     }
 
+    /**
+     * Return the player's first name.
+     *
+     * @return Player's first name
+     */
     public String getPlayerFirstName() {
         return PlayerFirstName;
     }
 
+    /**
+     * Return the player's last name.
+     *
+     * @return Player's last name
+     */
     public String getPlayerLastName() {
         return PlayerLastName;
     }
 
+    /**
+     * Return the player's full name, combining first and last name.
+     * If no last name is provided, only the first name is returned.
+     *
+     * @return Player's full name
+     */
     public String getPlayerFullName() {
         if (PlayerLastName.isEmpty()) {
             return PlayerFirstName;

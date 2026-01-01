@@ -25,6 +25,15 @@ import com.badlogic.gdx.utils.Array;
 /** <code> GameScreen </code> implements the main gameplay logic and rendering as one class,
  * to process user input, and redraw the frames and update the game asset states as
  * the game progresses.
+ *
+ * <p>This screen is responsible for:</p>
+ * <ul>
+ * <li>Loading and rendering the main Tiled map.</li>
+ * <li>Updating the player, enemies, and events.</li>
+ * <li>Tracking the timer, score penalties, and achievement conditions.</li>
+ * <li>Switching to win/lose/menu screens based on game state.</li>
+ * </ul>
+ *
  * @see com.badlogic.gdx.Screen Screen.
  */
 
@@ -91,6 +100,7 @@ public class GameScreen implements Screen {
         camera.zoom=0.5f;
         camera.update();
 
+        // Load the TMX map created in Tiled.
         tiledMap = new TmxMapLoader().load("Tile Maps/Final Game Map - Maze.tmx");
 
         drown = new Drown(
@@ -107,7 +117,7 @@ public class GameScreen implements Screen {
 
         freezeDean = new Freeze_Dean(
             tiledMap,
-            "Events"
+            "Events" // same object layer as Bus & BusTicket & Drown & questionnaire
         );
 
 
@@ -115,6 +125,7 @@ public class GameScreen implements Screen {
         viewport = new FitViewport(MAP_WIDTH, MAP_HEIGHT, camera);
 
         batch = new SpriteBatch();
+        // Spawn entities/events at fixed world coordinates.
         player = new Player(560, 180);
         locker = new Locker(495, 895);
         bush = new Slow_Down(770, 545);
@@ -131,19 +142,23 @@ public class GameScreen implements Screen {
         catchCounterFont.getData().setScale(1.5f);
         font = new BitmapFont();
 
+        // Pull the named objects from the Tiled "Events" layer.
         MapObjects eventObjects = tiledMap.getLayers().get("Events").getObjects();
 
+        // Create the ticket using the rectangle named "BusTicket".
         MapObject ticketObject = eventObjects.get("BusTicket");
         if (ticketObject != null && ticketObject instanceof RectangleMapObject) {
             RectangleMapObject rect = (RectangleMapObject) ticketObject;
             busTicket = new BusTicket(rect.getRectangle().x, rect.getRectangle().y);
         }
 
+        // Store the bus interaction zone rectangle named "Bus".
         MapObject busObject = eventObjects.get("Bus");
         if (busObject != null && busObject instanceof RectangleMapObject) {
             this.busInteractionArea = ((RectangleMapObject) busObject).getRectangle();
         }
 
+        // Scene2D UI setup for the timer HUD.
         uiSkin = new Skin(Gdx.files.internal("ui/uiskin.json"));
         uiStage = new Stage(new FitViewport(MAP_WIDTH, MAP_HEIGHT));
         uiTable = new Table();
@@ -165,9 +180,9 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         handleInput();
-
+        // If paused, render a frozen frame and return early
         if (isPaused) {
-// Render the current frame
+            // Render the current frame
             camera.update();
             mapRenderer.setView(camera);
             mapRenderer.render();
@@ -175,10 +190,10 @@ public class GameScreen implements Screen {
             batch.setProjectionMatrix(camera.combined);
             batch.begin();
 
-// Render the "Game Paused" message
+            // Render the "Game Paused" message
             font.draw(batch, "Game Paused", camera.position.x - 50, camera.position.y + 50);
 
-// Render the player and other static elements
+            // Render the player and other static elements
             player.render(batch);
             if (busTicket != null && busTicket.isCollected()) {
                 busTicket.renderAsIcon(batch, camera);
@@ -186,19 +201,22 @@ public class GameScreen implements Screen {
 
             batch.end();
 
-// Render the UI stage
+            // Render the UI stage
             uiStage.act(delta);
             uiStage.draw();
 
             return; // Skip the rest of the game logic
         }
 
+        // Update entities that depend on player position.
         friend.update(player);
+        // Update all deans.
         dean.update(delta);
         patrolDean1.update(delta);
         patrolDean2.update(delta);
         patrolDean3.update(delta);
         dean.update(delta);
+        // Extra dean (spawned as a penalty) behaves like a patrol dean.
         if (extraDean != null) {
             extraDean.update(delta);
             if (player.getPosition().dst(extraDean.getPosition()) < 16f) {
@@ -207,12 +225,14 @@ public class GameScreen implements Screen {
             }
         }
 
+        // Collision check for main chasing dean.
         if (player.getPosition().dst(dean.getPosition()) < 16f) {
             player.getPosition().set(560, 180);
             timesCaughtByDean++;
             dean.resetToStart(timesCaughtByDean); //send the dean back to his starting position or other side of the map to ensure he can't spawn camp the player
         }
 
+        // Collision check for patrol deans.
         if (player.getPosition().dst(patrolDean1.getPosition()) < 16f ||
             player.getPosition().dst(patrolDean2.getPosition()) < 16f ||
             player.getPosition().dst(patrolDean3.getPosition()) < 16f) {
@@ -221,25 +241,29 @@ public class GameScreen implements Screen {
             timesCaughtByPatrol++;
         }
 
-
+        // Drown Check
         if (drown.update(player)) {
             hasDrowned = true;
             timesDrowned++;
         }
 
+
+        // Update map events
         locker.update(player, delta);
         bush.update(player, delta);
         tree.update(player, gameTimer, delta);
         extraTime.update(player, gameTimer, delta);
         labEquipment.update(player, delta);
 
+        // Hidden quiz event
         if (questionnaire != null) {
             questionnaire.update(player, this);
         }
 
+        // Freeze event
         freezeDean.update(player, this);
 
-
+        // The logic behind the ticket pick up and the end game bus
         if (busTicket != null) {
             if (!busTicket.isCollected()) {
                 if (player.getPosition().dst(busTicket.getPosition()) < 16) {
@@ -264,6 +288,7 @@ public class GameScreen implements Screen {
             }
         }
 
+        // Camera follows the player
         camera.position.set(player.getPosition().x, player.getPosition().y, 0);
         camera.update();
 
@@ -312,6 +337,7 @@ public class GameScreen implements Screen {
             busTicket.render(batch);
         }
 
+        // Interaction prompt for ticket pickup.
         if (canPickUpTicket) {
             font.draw(
                 batch,
@@ -321,6 +347,7 @@ public class GameScreen implements Screen {
             );
         }
 
+        // Interaction prompt for using ticket at the bus.
         if (canEndGame) {
             font.draw(
                 batch,
@@ -367,16 +394,18 @@ public class GameScreen implements Screen {
             gameTimer.decrementTimer(delta);
         }
 
+        // When time runs out, trigger time-up behaviour.
         if (gameTimer.getTimeLeft() == 0) {
             gameTimer.onTimeUp();
             game.setScreen(new MenuScreen(game));
         }
 
-
+        // Escape key returns to menu.
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             game.setScreen(new MenuScreen(game));
         }
 
+        // Time-up to the game over screen
         if (gameTimer.getTimeLeft() == 0) {
             gameTimer.onTimeUp();
             game.setScreen(new GameOverScreen(game));
@@ -385,6 +414,14 @@ public class GameScreen implements Screen {
         uiStage.draw();
     }
 
+    /**
+     * Calculate the achievements earned by the player based on gameplay state.
+     *
+     * <p>Achievements are displayed on the win screen and can award positive or
+     * negative bonus score.</p>
+     *
+     * @return Array of achievements earned during this run.
+     */
     public Array<Achievement> calculateAchievements() {
         Array<Achievement> earnedAchievement = new Array<>();
 
@@ -463,7 +500,7 @@ public class GameScreen implements Screen {
         float newX = player.getPosition().x;
         float newY = player.getPosition().y;
 
-// independent key checks
+        // independent key checks
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             newY += moveSpeed;
             player.setDirection(Player.Direction.UP);
@@ -484,13 +521,13 @@ public class GameScreen implements Screen {
             player.setDirection(Player.Direction.RIGHT);
         }
 
-
+        // Ticket pickup event
         else if (canPickUpTicket && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             busTicket.collect();
             canPickUpTicket = false;
         }
 
-// Change pause functionality to use the P key, include this in docstrings
+        // Change pause functionality to use the P key, include this in docstrings
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             isPaused = !isPaused; // Toggle pause state
             return; // Skip other input handling when toggling pause
@@ -500,6 +537,7 @@ public class GameScreen implements Screen {
             return; // Do not process input if the game is paused
         }
 
+        // End game (win condition) interaction when standing in the bus zone with the ticket, calculating the score with the achievement.
         else if (canEndGame && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             int baseScore = calculateFinalScore();
             int totalPenalty = calculateTotalPenalty();
@@ -541,8 +579,12 @@ public class GameScreen implements Screen {
 
     /**
      * Returns if the cell at a given coordinate in the world allows an entity
-     * to move onto it.Useful for checking collisions when moving player or another
+     * to move onto it. Useful for checking collisions when moving player or another
      * entity.
+     *
+     * <p>This method checks tile properties (and/or layer properties) for a
+     * <code>collidable</code> flag.</p>
+     *
      * @param x Horizontal position of cell in the world.
      * @param y Vertical position of cell in the world.
      * @return True if cell blocks entities to move onto it, False if entities can move onto it.
@@ -565,7 +607,16 @@ public class GameScreen implements Screen {
         return false;
     }
 
-    // Only Dean treats doors as blocked
+    /**
+     * Return whether a cell blocks movement for the dean.
+     *
+     * <p>This is similar to {@link #isCellBlocked(float, float)} but also treats
+     * any layer with a <code>door</code> property as blocked for the dean.</p>
+     *
+     * @param x The horizontal position of cell in the world.
+     * @param y The vertical position of cell in the world.
+     * @return True if the cell blocks dean movement, false otherwise.
+     */
     public boolean isCellBlockedForDean(float x, float y) {
         for (int i = 0; i < tiledMap.getLayers().getCount(); i++) {
             if (tiledMap.getLayers().get(i) instanceof TiledMapTileLayer) {
@@ -587,10 +638,15 @@ public class GameScreen implements Screen {
 
 
     /**
-     * Calculate the player's final score
+     * Calculate the player's base score for this run.
+     *
+     * <p>Score is derived from time remaining subtract the penalties from deaths/catches.
+     * Score is set to have at least a minimum of 0.</p>
+     *
+     * @return Base score after penalties
      */
     public int calculateFinalScore() {
-//convert the time remaining into seconds to have as the player's score
+        //convert the time remaining into seconds to have as the player's score
         int timeRemainingSeconds = (int) gameTimer.getTimeLeft();
 
         int minutes = timeRemainingSeconds / 60;
@@ -599,7 +655,7 @@ public class GameScreen implements Screen {
 
         int totalPenalty = calculateTotalPenalty();
 
-//make sure the score can't go below 0 which could happen if the dean catches you enough times
+        //make sure the score can't go below 0 which could happen if the dean catches you enough times
         return Math.max(0, timeScore - totalPenalty);
     }
 
@@ -628,13 +684,15 @@ public class GameScreen implements Screen {
 
     /**
      * Get the number of times the player is caught by the Dean
+     *
+     * @return Number of times caught by the dean
      */
     public int getTimesCaughtByDean() {
         return timesCaughtByDean;
     }
 
     /**
-     * Dipose of all assets and UI elements when game screen is left i.e
+     * Dispose of all assets and UI elements when game screen is left i.e
      * when the player wins the game or quits.
      * @see com.badlogic.gdx.Screen#dispose Screen.dispose().
      */
@@ -660,6 +718,11 @@ public class GameScreen implements Screen {
         if (busTicket != null) { busTicket.dispose(); }
     }
 
+    /**
+     * Freeze all dean enemies by setting their movement speed to zero.
+     *
+     * <p>Used by the freeze event and potentially other mechanics.</p>
+     */
     public void freezeAllDeans() {
         if (dean != null) dean.setSpeed(0f);
         if (patrolDean1 != null) patrolDean1.setSpeed(0f);
@@ -670,6 +733,9 @@ public class GameScreen implements Screen {
         }
     }
 
+    /**
+     * Restore dean movement speeds after a freeze effect ends.
+     */
     public void unfreezeDeans() {
         dean.setSpeed(0.7f);
         patrolDean1.setSpeed(0.7f);
@@ -678,6 +744,11 @@ public class GameScreen implements Screen {
         if (extraDean != null) extraDean.setSpeed(0.7f);
     }
 
+    /**
+     * Spawn a second (extra) dean as a difficulty penalty.
+     *
+     * <p>This is used by the questionnaire fail outcome.</p>
+     */
     public void spawnSecondDean() {
         // Extra dean spawns in top-right area
         extraDean = new Patrol_Dean(780, 800, 700, 800, this);

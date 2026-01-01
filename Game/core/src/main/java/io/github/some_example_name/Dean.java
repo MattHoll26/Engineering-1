@@ -34,10 +34,18 @@ public class Dean {
 		this.velocity = new Vector2();
 	}
 
+    /**
+     * Set the movement speed of the dean.
+     * @param newSpeed New speed value for the dean.
+     */
     public void setSpeed(float newSpeed) {
         this.speed = newSpeed;
     }
 
+    /**
+     * Return the current movement speed of the dean.
+     * @return Current speed value.
+     */
     public float getSpeed() {
         return speed;
     }
@@ -80,9 +88,12 @@ public class Dean {
 		}
 	}
 
-	/**
-	 * Reset the dean to its starting position when the player is caught or to the other side of the map
-	 */
+    /**
+     * Reset the dean to its starting position when the player is caught,
+     * or move it to an alternative position to avoid spawn camping.
+     *
+     * @param caughtNumber Number of times the player has been caught by the dean.
+     */
 	public void resetToStart(int caughtNumber) {
 		if (caughtNumber % 2 == 0){
 			//if the number of times caught by the dean is even send them to a new positon than their starting, otherwise send them to the start

@@ -1,11 +1,7 @@
 package io.github.some_example_name;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.audio.Sound;
@@ -105,7 +101,7 @@ public class GameTimer {
 	}
 
 	/**
- 	 * Get the grpahical label that displays the amount of time left.
+ 	 * Get the graphical label that displays the amount of time left.
 	 * @return Label component.
 	 */
 	public Label getTimerLabel() {

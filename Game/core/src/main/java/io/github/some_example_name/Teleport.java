@@ -1,7 +1,5 @@
 package io.github.some_example_name;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -31,6 +29,7 @@ public class Teleport {
      * Constructor for <code> Teleport </code>, with a set of coordinates.
      * @param x Horizontal position for locker to spawn in.
      * @param y Vertical position for locker to spawn in.
+     * @param gameScreen Screen instance controlling gameplay and collision checks.
      */
     public Teleport(float x, float y, GameScreen gameScreen) {
         texture = new Texture("locker.png");

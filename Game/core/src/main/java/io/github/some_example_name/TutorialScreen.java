@@ -10,9 +10,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /**
+ * <code>TutorialScreen</code> implements the tutorial screen shown
+ * before the main game begins. It displays a full-screen tutorial image and
+ * lets the player continue to the name entry screen.
  *
+ * <p>Controls:</p>
+ * <ul>
+ * <li>SPACE --> Continue to {@link NameScreen}</li>
+ * <li>ESC --> Exit the game</li>
+ * </ul>
+ *
+ * @see com.badlogic.gdx.Screen Screen
  */
-
 public class TutorialScreen implements Screen {
     private final MyGame game;
     private OrthographicCamera camera;
@@ -23,6 +32,11 @@ public class TutorialScreen implements Screen {
     private final int MENU_WIDTH = 790;
     private final int MENU_HEIGHT = 480;
 
+    /**
+     * Constructor for <code>TutorialScreen</code>, creating the rendering
+     * objects and loading the tutorial screen image.
+     * @param game Game controller used to swap between screens.
+     */
     public TutorialScreen(MyGame game) {
         this.game = game;
         camera = new OrthographicCamera();
@@ -35,6 +49,11 @@ public class TutorialScreen implements Screen {
         viewport = new FitViewport(MENU_WIDTH, MENU_HEIGHT, camera);
     }
 
+    /**
+     * Render the tutorial screen and process key input for moving to the next screen.
+     * @param delta Time in seconds since the last frame finished rendering.
+     * @see com.badlogic.gdx.Screen#render Screen.render().
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -56,26 +75,40 @@ public class TutorialScreen implements Screen {
         }
     }
 
+    /**
+     * Resize the viewport when the window size changes.
+     * @param width Current width of the window.
+     * @param height Current height of the window.
+     * @see com.badlogic.gdx.Screen#resize Screen.resize().
+     */
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
     }
 
+    /**
+     * Dispose of assets used by this screen when it is no longer needed.
+     * @see com.badlogic.gdx.Screen#dispose Screen.dispose().
+     */
     @Override
     public void dispose() {
         batch.dispose();
         tutorialImage.dispose();
     }
 
+    /** Unimplemented */
     @Override
-    public void show(){} //show main menu screen
+    public void show(){}
 
+    /** Unimplemented */
     @Override
-    public void pause(){} //not yet implemented
+    public void pause(){}
 
+    /** Unimplemented */
     @Override
     public void resume(){}
 
+    /** Unimplemented */
     @Override
     public void hide(){}
 
