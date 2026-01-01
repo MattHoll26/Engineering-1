@@ -32,6 +32,7 @@ public class Player
 	private TextureRegion frontFrame;
 	private TextureRegion backFrame;
 	private TextureRegion sideFrame;
+    /** The current animation frame used when rendering the player sprite. */
 	public TextureRegion currentFrame;
 
 	/**

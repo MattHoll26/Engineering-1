@@ -659,7 +659,18 @@ public class GameScreen implements Screen {
         return Math.max(0, timeScore - totalPenalty);
     }
 
-
+    /**
+     * Calculate the total score penalty based on negative events.
+     *
+     * <p>Penalties:</p>
+     * <ul>
+     * <li>Dean catches: 5 points per caught time</li>
+     * <li>Patrol dean catches: 5 points per caught time</li>
+     * <li>Drowning: 10 points per time drowned</li>
+     * </ul>
+     *
+     * @return Total penalty score to subtract from the base time score.
+     */
     public int calculateTotalPenalty() {
         int deanPenalty = timesCaughtByDean * 5;
         int drownedPenalty = timesDrowned * 10;

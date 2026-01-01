@@ -14,8 +14,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  * on-screen keyboard. The player enters a first name (mandatory) and an optional
  * last name, then starts the game.
  *
- * <p>
- * Input options:
+ * <p>Input options:</p>
  * <ul>
  * <li>Mouse click - selects keys on the on-screen keyboard.</li>
  * <li>TAB - switches between first name and last name.</li>
@@ -23,7 +22,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  * <li>DEL / BACKSPACE - deletes the last character of the active field.</li>
  * <li>ESC - returns to the tutorial screen.</li>
  * </ul>
- * </p>
  *
  * @see com.badlogic.gdx.Screen Screen
  */
