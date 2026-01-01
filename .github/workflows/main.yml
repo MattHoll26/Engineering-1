@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-test-docs:
+  libgdx-game-test-build-ci:
     runs-on: ubuntu-latest
 
     defaults:
@@ -26,7 +26,7 @@ jobs:
           java-version: "17"
           cache: gradle
 
-      - name: Make the Gradle wrapper executable
+      - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
 
       - name: Build
@@ -38,5 +38,5 @@ jobs:
       - name: Generate Javadoc
         run: ./gradlew javadoc
 
-      - name: Create JAR [lwjgl3]
+      - name: Create runnable JAR (lwjgl3)
         run: ./gradlew lwjgl3:dist
