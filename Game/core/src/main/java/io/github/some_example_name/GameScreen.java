@@ -133,9 +133,9 @@ public class GameScreen implements Screen {
         labEquipment = new Teleport(750,610, this);
         extraTime = new Extra_Time(300, 120);
         dean = new Dean(300, 310,     player, this);
-        patrolDean1 = new Patrol_Dean(140, 190, 100, 260, this);
-        patrolDean2 = new Patrol_Dean(170, 130, 100, 260, this);
-        patrolDean3 = new Patrol_Dean(200, 100, 100, 260, this);
+        patrolDean1 = new Patrol_Dean(140, 190, 90, 260, this);
+        patrolDean2 = new Patrol_Dean(170, 130, 90, 260, this);
+        patrolDean3 = new Patrol_Dean(200, 100, 90, 260, this);
         friend = new NPC(560, 600);
 
         catchCounterFont = new BitmapFont();

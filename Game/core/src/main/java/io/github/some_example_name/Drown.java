@@ -15,7 +15,8 @@ public class Drown {
 
 
     /** Rectangle defining the water hazard area */
-    private Rectangle waterArea;
+    private Rectangle waterArea1;
+    private Rectangle waterArea2;
 
     /** Position the player is reset to after drowning */
     private Vector2 respawnPosition;
@@ -35,12 +36,15 @@ public class Drown {
 
         for (MapObject obj : tiledMap.getLayers().get(layerName).getObjects()) {
             if (obj instanceof RectangleMapObject) {
-                if ("Water".equalsIgnoreCase(obj.getName())) {
-                    waterArea = ((RectangleMapObject) obj).getRectangle();
-                    break;
+                if ("Water1".equalsIgnoreCase(obj.getName())) {
+                    waterArea1 = ((RectangleMapObject) obj).getRectangle();
+                } else if ("Water2".equalsIgnoreCase(obj.getName())) {
+                    waterArea2 = ((RectangleMapObject) obj).getRectangle();
                 }
             }
         }
+
+
     }
 
     /**
@@ -50,7 +54,8 @@ public class Drown {
      * @return True if the player drowned and was respawned, false otherwise
      */
     public boolean update(Player player) {
-        if (waterArea == null) return false;
+       // if (waterArea1 == null) return false;
+       // if (waterArea2 == null) return false;
 
         Rectangle playerRect = new Rectangle(
             player.getPosition().x,
@@ -59,7 +64,12 @@ public class Drown {
             16
         );
 
-        if (playerRect.overlaps(waterArea)) {
+        if (playerRect.overlaps(waterArea1)) {
+            player.getPosition().set(respawnPosition);
+            return true; // drowned
+        }
+
+        if (playerRect.overlaps(waterArea2)) {
             player.getPosition().set(respawnPosition);
             return true; // drowned
         }
