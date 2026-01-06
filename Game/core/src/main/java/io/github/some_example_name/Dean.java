@@ -5,7 +5,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-/** <code> Dean </code> is the main enemy of the game, which chases the player's
+/**
+ * EXTENDED
+ *
+ * <code> Dean </code> is the main enemy of the game, which chases the player's
  * character to attempt to attack them, resetting them to the start of the game.
  */
 
@@ -35,6 +38,8 @@ public class Dean {
 	}
 
     /**
+     * NEW
+     *
      * Set the movement speed of the dean.
      * @param newSpeed New speed value for the dean.
      */

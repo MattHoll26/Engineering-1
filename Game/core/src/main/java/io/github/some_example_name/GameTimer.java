@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.audio.Sound;
 
 /**
+ * EXTENDED
+ *
  * <code>GameTimer</code> implements a timer that ticks down during gameplay, and emits
  * a sound when it reaches 0.
  * It contains a sprite that can be rendered to display to the user graphically
@@ -72,6 +74,8 @@ public class GameTimer {
 	}
 
     /**
+     * NEW
+     *
      * Allows the timer to be decreased or increased by any amount
      * @param amount Value to add or remove from timer
      */

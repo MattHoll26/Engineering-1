@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 /**
+ * UNCHANGED
+ *
  * <code> BusTicket </code> represents the ticket used to allow player to board
  * bus and win the game, containing both the actual sprite the user can interact
  * with, and UI elements to represent if the ticket has been picked up or not.

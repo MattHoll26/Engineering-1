@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
+ * NEW
+ *
  * <code>Drown</code> represents a water hazard that resets the player
  * if they step into it. Uses the same rectangle overlap style
  * as bus and ticket interactions.
@@ -43,8 +45,6 @@ public class Drown {
                 }
             }
         }
-
-
     }
 
     /**
@@ -54,8 +54,6 @@ public class Drown {
      * @return True if the player drowned and was respawned, false otherwise
      */
     public boolean update(Player player) {
-       // if (waterArea1 == null) return false;
-       // if (waterArea2 == null) return false;
 
         Rectangle playerRect = new Rectangle(
             player.getPosition().x,

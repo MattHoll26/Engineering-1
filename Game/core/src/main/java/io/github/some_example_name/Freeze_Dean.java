@@ -9,6 +9,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
+ * NEW
+ *
  * <code> Freeze_Dean </code> is a positive hidden event that allows the player to
  * temporarily freeze all dean enemies for a fixed duration when interacting with
  * the "Materials" area in the Tiled map.

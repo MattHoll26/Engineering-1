@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /**
+ * EXTENDED
+ *
  * <code> MenuScreen </code> implements a main menu screen, to let player pause, resume
  * and quit game.
  * @see com.badlogic.gdx.Screen Screen.
@@ -77,6 +79,8 @@ public class MenuScreen implements Screen {
     }
 
     /**
+     * EXTENDED
+     *
      * Resize UI Viewport when the window size is changed.
      * @param width Current width of window.
      * @param height Current height of window.

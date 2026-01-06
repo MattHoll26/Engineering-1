@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 
 /**
+ * NEW
+ *
  * <code> LeaderboardScreen </code> implements a screen that displays the top
  * scores stored in the local leaderboard file.
  * The player can return to the main menu or quit the game from this screen.

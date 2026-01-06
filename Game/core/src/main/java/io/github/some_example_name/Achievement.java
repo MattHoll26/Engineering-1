@@ -1,6 +1,8 @@
 package io.github.some_example_name;
 
 /**
+ * NEW
+ *
  * Represents the achievements that the player can achieve
  * Each achievement provides a positive or negative
  */

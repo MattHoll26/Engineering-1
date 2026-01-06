@@ -10,6 +10,8 @@ import com.badlogic.gdx.math.Vector2;
 import static com.badlogic.gdx.math.MathUtils.random;
 
 /**
+ * EXTENDED
+ *
  * <code> NPC </code> represents NPCs that can provide items or dialog to
  * the player when interacted with.
  */
@@ -37,6 +39,8 @@ public class NPC {
 	}
 
 	/**
+     * EXTENDED
+     *
 	 * Update if the dialog is shown to player depending on player position
 	 * and if the E key has been pressed recently.
 	 * @param player Player object.

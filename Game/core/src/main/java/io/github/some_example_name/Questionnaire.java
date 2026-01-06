@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.*;
 
 
 /**
+ * NEW
+ *
  * <code>Questionnaire</code> it represent a quiz event area which has been loaded from the Tiled map.
  * When the player enters the quiz area they can press <code>E</code> to start the quiz.
  * The player must answer using keys <code>A</code>, <code>B</code>, <code>C</code>, or <code>D</code>.

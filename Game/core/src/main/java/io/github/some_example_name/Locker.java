@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
+ * EXTENDED
+ *
  * <code> Locker </code> is an interactable game object, that acts as the
  * positive game event by allowing the player to find a "sweet treat"
  * giving a temporary speed boost.
@@ -41,6 +43,8 @@ public class Locker {
 	}
 
 	/**
+     * EXTENDED
+     *
 	 * Update attributes of locker, and decrement timer on speed boost and
 	 * label timer, showing label if the label timer is still active.
 	 * @param player Player character.
@@ -107,6 +111,8 @@ public class Locker {
 	}
 
     /**
+     * NEW
+     *
      * Return if the locker has been searched for updating the counter
      * @return True/False value.
      */

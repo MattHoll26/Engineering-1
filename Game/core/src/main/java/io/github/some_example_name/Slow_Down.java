@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
+ * NEW
+ *
  * <code> bush </code> is an interactable game object, that acts as the
  * negative game event by allowing the player to fall into a bush,
  * giving a temporary speed reduction.

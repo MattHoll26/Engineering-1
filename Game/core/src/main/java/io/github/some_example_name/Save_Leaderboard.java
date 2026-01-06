@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.*;
 
 
 /**
+ * NEW
+ *
  * <code>Save_Leaderboard</code> handles persistence for the game's leaderboard.
  * Scores are stored locally in a JSON file and loaded/saved using LibGDX utilities.
  * The leaderboard is limited to the top 5 scores by default.

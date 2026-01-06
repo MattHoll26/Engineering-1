@@ -5,11 +5,15 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 /**
+ * EXTENDED
+ *
  * <code> Player </code> is the main character of the game, handling rendering and direction of the character sprite.
  */
 public class Player
 {
 	/**
+     * EXTENDED
+     *
 	 * Enumeration of all the possible directions the player sprite can face.
 	 */
 	public enum Direction
