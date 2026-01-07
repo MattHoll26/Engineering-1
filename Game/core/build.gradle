@@ -1,3 +1,9 @@
+// NEW: jacoco config
+plugins {
+  id 'java'
+  id 'jacoco'
+}
+
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 eclipse.project.name = appName + '-core'
 
@@ -13,5 +19,19 @@ dependencies {
 
   if(enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
+  }
+}
+
+// NEW: Generates the JaCoCo report after the tests
+test {
+  finalizedBy jacocoTestReport
+}
+
+// NEW: Full JaCoCo coverage report configuration for CI
+jacocoTestReport {
+  dependsOn test
+  reports {
+    xml.required = true
+    html.required = true // NEW: The HTML coverage report for the Continuous Integration
   }
 }
