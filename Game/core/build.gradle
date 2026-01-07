@@ -16,8 +16,7 @@ dependencies {
   api "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
   api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
-  // NEW: JUNit 5 support and headless testing
-  api "com.badlogic.gdx:gdx-backend-headless:$gdxVersion"
+  // NEW: JUNit 5 support
   testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.2"
   testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.8.2"
 
