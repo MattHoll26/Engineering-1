@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
+ * UNCHANGED
+ *
  * <code> GameOverScreen </code> implements a screen that appears when the timer runs out
  * @see com.badlogic.gdx.Screen Screen
  */

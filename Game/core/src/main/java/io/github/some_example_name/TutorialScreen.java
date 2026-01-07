@@ -69,6 +69,7 @@ public class TutorialScreen implements Screen {
 
         //once space bar is pressed load the maze game
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            // MODIFIED: Changed transition to NameScreen instead of GameScreen
             game.setScreen(new NameScreen(game));
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit(); //user can go back to the start menu if they choose
