@@ -58,7 +58,7 @@ public class Dean {
     }
 
 	/**
-     * UNCHANGED
+     * EXTENDED
 	 * Update position of dean to get closer to player's new position.
 	 * @param delta Time elapsed since last update.
 	 */
@@ -77,7 +77,7 @@ public class Dean {
 	}
 
 	/**
-     * UNCHANGED
+     * EXTENDED
 	 * Attempt to move dean diagonally towards player if moving
 	 * in a straight line is not possible.
 	 * @param delta Time elapsed since last update.
@@ -117,6 +117,7 @@ public class Dean {
 
 
 	/**
+     * UNCHANGED
 	 * Convenience method to be called by the game screen's <code> render()
 	 * </code> method, to draw the dean using a SpriteBatch at the current
 	 * dean coordinates.
@@ -129,18 +130,21 @@ public class Dean {
 	}
 
 	/**
+     * UNCHANGED
 	 * Return 2D coordinates of dean.
 	 * @return 2D Vector x-by-y position of dean.
 	 */
 	public Vector2 getPosition() {return position; }
 
 	/**
+     * UNCHANGED
 	 * Return rectangle representing collision bounds of dean.
 	 * @return Rectangle collision box.
 	 */
 	public Rectangle getBounds() { return new Rectangle(position.x, position.y, 16,16); }
 
 	/**
+     * UNCHANGED
 	 * Convenience method to be called by application to dispose of textures
 	 * of player's sprites when the application's dispose method is called.
 	  @see com.badlogic.gdx.Screen#dispose Screen.dispose().
