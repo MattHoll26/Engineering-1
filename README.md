@@ -7,8 +7,8 @@ Developers - Abdul Fofanah dqm509@york.ac.uk, Matthew Holleran snk539@york.ac.uk
 We took over from Cohort 2, Group 1 Assesmnent 1
 
 # Quick Start
-
-`cd Quick_start`
+In order to play the game instantly:
+`cd /Quick_start`
 then
 
 `java -jar Escape_the_Uni_Assessment_2_THADJAM.jar`
