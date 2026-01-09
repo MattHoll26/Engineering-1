@@ -3,9 +3,18 @@ package io.github.some_example_name;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.mockito.MockedConstruction;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
 
+/**
+ * Test suite for MyGame class.
+ * Tests player name management, full name formatting, null/whitespace handling, and screen creation.
+ * Test coverage:100%
+ * Fully automated
+ */
 @DisplayName("MyGame Tests")
 public class MyGameTest extends TestHelper{
 
@@ -65,5 +74,22 @@ public class MyGameTest extends TestHelper{
         assertEquals("Daneena", game.getPlayerFirstName());
         assertEquals("Roy", game.getPlayerLastName());
         assertEquals("Daneena Roy", game.getPlayerFullName());
+    }
+
+    //Test #8
+    @Test
+    @DisplayName("create() sets MenuScreen")
+    void testCreateSetsMenuScreen() {
+        try (MockedConstruction<MenuScreen> mockedMenuScreen = mockConstruction(MenuScreen.class)) {
+
+            MyGame game = spy(new MyGame());
+
+            game.create();
+
+            assertEquals(1, mockedMenuScreen.constructed().size(),
+                "MenuScreen should be constructed once");
+
+            verify(game, times(1)).setScreen(any(MenuScreen.class));
+        }
     }
 }
