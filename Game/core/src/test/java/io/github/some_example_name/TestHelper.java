@@ -1,22 +1,25 @@
 package io.github.some_example_name;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
-public class TestHelper {
+/**
+ * Base test helper class that sets up LibGDX headless environment.
+ * test classes extend this to get proper LibGDX context like Gdx.files and Gdx.graphics
+ * LibGDX headless backend for testing
+ */
+public abstract class TestHelper {
 
-    private static HeadlessApplication application;
+    @BeforeEach
+    public void setup() {
+        // Mock GL20 for basic rendering calls
+        Gdx.gl = Mockito.mock(GL20.class);
+        Gdx.gl20 = Mockito.mock(GL20.class);
 
-    @BeforeAll
-    public static void setupLibGDX() {
-        if (application == null) {
-            Gdx.gl = Mockito.mock(GL20.class);
-            Gdx.gl20 = Mockito.mock(GL20.class);
-            application = new HeadlessApplication(new ApplicationAdapter() {});
-        }
+        // Initialize full headless application
+        // This provides Gdx.files, Gdx.graphics, etc.
+        HeadlessLauncher.main(new String[0]);
     }
 }

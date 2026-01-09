@@ -41,20 +41,22 @@ public class NPC {
 	 * and if the E key has been pressed recently.
 	 * @param player Player object.
 	 */
-	public void update(Player player){
-		if (
-			player.getPosition().dst(position) < 50f &&
-			Gdx.input.isKeyJustPressed(Input.Keys.E)
-		)
-		{
-		    showMessage = true;
-            currentLine = lines[random.nextInt(lines.length)];
-		}
+    public void update(Player player) {
 
-		if(showMessage && player.getPosition().dst(position) > 60f){
-		    showMessage = false;
-		}
-	}
+        bounds.setPosition(position.x, position.y);
+
+        if (
+            isPlayerInRange(player) &&
+                isInteractKeyPressed()
+        ) {
+            showMessage = true;
+            currentLine = chooseDialogLine();
+        }
+
+        if (showMessage && isPlayerOutOfRange(player)) {
+            showMessage = false;
+        }
+    }
 
 	/**
 	 * Convenience method to be called by the game screen's <code> render()
@@ -84,7 +86,24 @@ public class NPC {
 		font.dispose();
 	}
 
-	/**
+    protected boolean isInteractKeyPressed() {
+        return Gdx.input.isKeyJustPressed(Input.Keys.E);
+    }
+
+    protected boolean isPlayerInRange(Player player) {
+        return player.getPosition().dst(position) < 50f;
+    }
+
+    protected boolean isPlayerOutOfRange(Player player) {
+        return player.getPosition().dst(position) > 60f;
+    }
+
+    protected String chooseDialogLine() {
+        return lines[random.nextInt(lines.length)];
+    }
+
+
+    /**
 	 * Get the NPC's position in world.
 	 * @return The players x-by-y coordinates as a 2D vector.
 	 */
