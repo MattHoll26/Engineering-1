@@ -1,2 +1,5 @@
 title: My Website
 theme: minima
+
+nav:
+  - Home: index.md
