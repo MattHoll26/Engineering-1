@@ -31,7 +31,8 @@ allprojects {
 configure(subprojects) {
   apply plugin: 'java-library'
   apply plugin: 'jacoco' //added this for testdev
-  sourceCompatibility = 8
+  sourceCompatibility = JavaVersion.VERSION_17
+  targetCompatibility = JavaVersion.VERSION_17
 //added this for testdev
   sourceSets{
     main{
@@ -48,10 +49,10 @@ configure(subprojects) {
 
     testLogging{
       events "passed","skipped","failed","standardOut","standardError"
-      exceptionFormat "full"
-      showExceptions true
-      showCauses true
-      showStackTraces true
+      exceptionFormat = "full"
+      showExceptions = true
+      showCauses = true
+      showStackTraces = true
     }
     ignoreFailures = false
   }
@@ -66,9 +67,11 @@ configure(subprojects) {
     dependsOn test
 
     reports{
-      xml.required = true
-      html.required = true
-      csv.required = false
+      xml.required.set(true)
+      html.required.set(true)
+      csv.required.set(false)
+
+      html.outputLocation.set(layout.buildDirectory.dir('reports/jacoco/test/html')) //directory to generate jacoco report coverage
     }
 
     afterEvaluate {
