@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Game.core" options="-Xlint:-none" />
+      <module name="Game.core.main" options="-Xlint:-none" />
+      <module name="Game.core.test" options="-Xlint:-none" />
+      <module name="Game.lwjgl3" options="-Xlint:-none" />
+      <module name="Game.lwjgl3.main" options="-Xlint:-none" />
+      <module name="Game.lwjgl3.test" options="-Xlint:-none" />
+    </option>
+  </component>
+</project>

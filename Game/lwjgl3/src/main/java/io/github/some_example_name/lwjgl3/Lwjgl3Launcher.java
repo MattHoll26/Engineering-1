@@ -6,11 +6,11 @@ import io.github.some_example_name.Main;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
-    
-    /**   
+
+    /**
      * Create application.
      * @param args Arguments for app.
-     */  
+     */
     public static void main(String[] args) {
         if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
         createApplication();
@@ -21,9 +21,9 @@ public class Lwjgl3Launcher {
         return new Lwjgl3Application(new Main(), getDefaultConfiguration());
     }
 
-    /** 
+    /**
      * Get config for app.
-     * @return Application configuration 
+     * @return Application configuration
      */
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
@@ -38,7 +38,10 @@ public class Lwjgl3Launcher {
         //// If you remove the above line and set Vsync to false, you can get unlimited FPS, which can be
         //// useful for testing performance, but can also be very stressful to some hardware.
         //// You may also need to configure GPU drivers to fully disable Vsync; this can cause screen tearing.
-        configuration.setFullscreenMode(configuration.getDisplayMode());
+        //// CHANGED: Use windowed mode instead of fullscreen for testing
+        configuration.setWindowedMode(1280, 960);  // TESTING RESIZABLE WINDOW
+        configuration.setResizable(true);           // TESTING
+        //configuration.setFullscreenMode(configuration.getDisplayMode());
         //// You can change these files; they are in lwjgl3/src/main/resources/ .
         //// They can also be loaded from the root of assets/ .
         configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");

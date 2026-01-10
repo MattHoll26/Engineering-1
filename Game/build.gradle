@@ -28,10 +28,67 @@ allprojects {
     destinationDir = file("build/docs/javadoc")
   }
 }
-
 configure(subprojects) {
   apply plugin: 'java-library'
-  sourceCompatibility = 8
+  apply plugin: 'jacoco' //added this for testdev
+  sourceCompatibility = JavaVersion.VERSION_17
+  targetCompatibility = JavaVersion.VERSION_17
+//added this for testdev
+  sourceSets{
+    main{
+      java.srcDirs = ["src/main/java"]
+    }
+    test{
+      java.srcDirs = ["src/test/java"]
+    }
+  }
+
+  //added this for testdev TEST CONFIGURATION
+  test {
+    useJUnitPlatform()
+
+    // Suppress JVM warnings
+    jvmArgs '-Xshare:off'
+
+    testLogging{
+      events "passed","skipped","failed","standardOut","standardError"
+      exceptionFormat = "full"
+      showExceptions = true
+      showCauses = true
+      showStackTraces = true
+    }
+    ignoreFailures = false
+  }
+
+  //added this for testdev
+
+  jacoco{
+    toolVersion = "0.8.10"
+  }
+
+  jacocoTestReport{
+    dependsOn test
+
+    reports{
+      xml.required.set(true)
+      html.required.set(true)
+      csv.required.set(false)
+
+      html.outputLocation.set(layout.buildDirectory.dir('reports/jacoco/test/html')) //directory to generate jacoco report coverage
+    }
+
+    afterEvaluate {
+      classDirectories.setFrom(files(classDirectories.files.collect{
+        fileTree(dir: it, exclude: [
+          '**/*Screen.class',
+          '**/*Launcher.class'
+        ])
+      }))
+    }
+  }
+
+  //added for testdev
+  test.finalizedBy jacocoTestReport
 
   // From https://lyze.dev/2021/04/29/libGDX-Internal-Assets-List/
   // The article can be helpful when using assets.txt in your project.
@@ -70,6 +127,14 @@ subprojects {
 //    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
     maven { url 'https://central.sonatype.com/repository/maven-snapshots/' }
     maven { url 'https://jitpack.io' }
+  }
+  //added for testdev
+  dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.3'
+    testImplementation 'org.mockito:mockito-core:5.3.1'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.3.1'
   }
 }
 
