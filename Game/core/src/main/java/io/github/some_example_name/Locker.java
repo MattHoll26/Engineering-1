@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
+ * EXTENDED
+ *
  * <code> Locker </code> is an interactable game object, that acts as the
  * positive game event by allowing the player to find a "sweet treat"
  * giving a temporary speed boost.
@@ -29,6 +31,7 @@ public class Locker {
 	private BitmapFont font;
 
 	/**
+     * UNCHANGED
 	 * Constructor for <code> Locker </code>, with a set of coordinates.
 	 * @param x Horizontal position for locker to spawn in.
 	 * @param y Vertical position for locker to spawn in.
@@ -41,6 +44,8 @@ public class Locker {
 	}
 
 	/**
+     * EXTENDED
+     *
 	 * Update attributes of locker, and decrement timer on speed boost and
 	 * label timer, showing label if the label timer is still active.
 	 * @param player Player character.
@@ -70,6 +75,7 @@ public class Locker {
 	}
 
 	/**
+     * EXTENDED JAVADOC
 	 * Convenience method to be called by the game screen's <code> render()
 	 * </code> method, to draw the locker, and it's label using a
 	 * SpriteBatch at its coordinates.
@@ -89,6 +95,7 @@ public class Locker {
 	}
 
 	/**
+     * UNCHANGED
 	 * Convenience method to be called by application to dispose of texture
 	 * and font's locker's sprites when the application's dispose method is called.
 	 * @see com.badlogic.gdx.Screen#dispose Screen.dispose().
@@ -99,6 +106,7 @@ public class Locker {
 	}
 
 	/**
+     * UNCHANGED
 	 * Return if speed booster is still active.
 	 * @return True/False value.
 	 */
@@ -107,6 +115,8 @@ public class Locker {
 	}
 
     /**
+     * NEW
+     *
      * Return if the locker has been searched for updating the counter
      * @return True/False value.
      */

@@ -1,6 +1,11 @@
 [
 {
 	class: io.github.some_example_name.Save_Leaderboard$ScoreEntry
+	fullName: ABDUL
+	score: 882
+}
+{
+	class: io.github.some_example_name.Save_Leaderboard$ScoreEntry
 	fullName: ABDUL TEST
 	score: 880
 }
@@ -18,10 +23,5 @@
 	class: io.github.some_example_name.Save_Leaderboard$ScoreEntry
 	fullName: ABDUL FINAL
 	score: 800
-}
-{
-	class: io.github.some_example_name.Save_Leaderboard$ScoreEntry
-	fullName: FINAL ABDUL
-	score: 759
 }
 ]

@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.audio.Sound;
 
 /**
+ * EXTENDED
+ *
  * <code>GameTimer</code> implements a timer that ticks down during gameplay, and emits
  * a sound when it reaches 0.
  * It contains a sprite that can be rendered to display to the user graphically
@@ -21,6 +23,7 @@ public class GameTimer {
 	private Sound timerDingSFX;
 
 	/**
+     * UNCHANGED
 	 * Constructor for <code>GameTimer</code>, defaulting to 300 seconds.
 	 * @param skin Skin containing style for the timer label.
 	 * @param table Table displaying timer widget.
@@ -34,6 +37,7 @@ public class GameTimer {
 	}
 
 	/**
+     * UNCHANGED
 	 * Constructor for <code>GameTimer</code> for a given amount of seconds.
 	 * @param skin Skin containing style for the timer label.
 	 * @param table Table displaying timer widget.
@@ -51,6 +55,7 @@ public class GameTimer {
 
 
 	/**
+     * UNCHANGED
  	 * Return the time in formatted in mm:ss for time left.
  	 * @return String formatted in mm:ss of time left.
 	 */
@@ -62,6 +67,7 @@ public class GameTimer {
 	}
 
 	/**
+     * EXTENDED JAVADOC
 	 * Decrements timer by given value, or to 0 if the new value will be a
 	 * negative number.
 	 * @param decrementation Value to reduce the timer by, in seconds, ideally sourced from {@link com.badlogic.gdx.Graphics#getRawDeltaTime()}.
@@ -72,6 +78,8 @@ public class GameTimer {
 	}
 
     /**
+     * NEW
+     *
      * Allows the timer to be decreased or increased by any amount
      * @param amount Value to add or remove from timer
      */
@@ -85,6 +93,7 @@ public class GameTimer {
     }
 
 	/**
+     * UNCHANGED
 	 * Called when the time reaches 0, to play finishing sound and
 	 * change to game over screen.
 	 */
@@ -93,6 +102,7 @@ public class GameTimer {
 	}
 
 	/**
+     * UNCHANGED
 	 * Get time left in seconds in timer.
 	 * @return Time left in seconds.
 	 */
@@ -101,6 +111,7 @@ public class GameTimer {
 	}
 
 	/**
+     * UNCHANGED
  	 * Get the graphical label that displays the amount of time left.
 	 * @return Label component.
 	 */
@@ -109,6 +120,7 @@ public class GameTimer {
 	}
 
 	/**
+     * UNCHANGED
  	 * Helper method to create and add the label to given table.
  	 * @param skin Skin containing style for the timer label.
 	 * @param table Table displaying timer widget.

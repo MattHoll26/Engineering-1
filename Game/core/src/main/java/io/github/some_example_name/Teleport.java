@@ -8,6 +8,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
+ * NEW
+ *
  * <code> Teleport </code> is an interactable game object, that acts as the
  * hidden game event by allowing the player to teleport randomly using some
  * science lab equipment

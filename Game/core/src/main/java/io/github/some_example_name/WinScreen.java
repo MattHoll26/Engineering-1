@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 
 /**
+ * EXTENDED
+ *
  * <code> WinScreen </code> implements a static screen with a congratulation message, and
  * allows player to then quit or replay game.
  * @see com.badlogic.gdx.Screen Screen.
@@ -29,6 +31,8 @@ public class WinScreen implements Screen {
 	private int totalPenalty;
 
     /**
+     * EXTENDED
+     *
      * Constructor for <code> WinScreen </code>, using the game creator in
      * <code> MyGame </code> to create menu screen.
      * @param game Game creator.
@@ -53,6 +57,8 @@ public class WinScreen implements Screen {
 	}
 
 	/**
+     * EXTENDED
+     *
 	 * Process the input and then render the new frame for the win menu.
 	 * @param delta Time in seconds since last frame finished rendering.
 	 * @see com.badlogic.gdx.Screen#render Screen.render().
@@ -99,6 +105,7 @@ public class WinScreen implements Screen {
 	}
 
    	/**
+     * UNCHANGED
 	 * Dispose win menu assets when menu is exited or program is quit.
 	 * @see com.badlogic.gdx.Screen#dispose Screen.dispose().
 	 */

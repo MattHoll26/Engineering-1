@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
+ * NEW
+ *
  * <code>Patrol_Dean</code> represents a Dean enemy that patrols vertically
  * between two Y axis bounds. The dean reverses direction when reaching
  * its limits or when colliding with a blocked tile.

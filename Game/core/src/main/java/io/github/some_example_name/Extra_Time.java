@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
+ * NEW
+ *
  * <code>Extra_Time</code> is an interactable game object that represents
  * a positive event. When the player collides with this NPC, additional
  * time is permanently added to the game timer.

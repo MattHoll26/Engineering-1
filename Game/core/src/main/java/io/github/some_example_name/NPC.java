@@ -10,6 +10,8 @@ import com.badlogic.gdx.math.Vector2;
 import static com.badlogic.gdx.math.MathUtils.random;
 
 /**
+ * EXTENDED
+ *
  * <code> NPC </code> represents NPCs that can provide items or dialog to
  * the player when interacted with.
  */
@@ -25,6 +27,7 @@ public class NPC {
                             "How are you in 2 places at once!!!\nMaybe check the deans office?"};
     private String currentLine;
 	/**
+     * UNCHANGED
 	 * Constructor for <code> NPC </code>, with a set of coordinates.
 	 * @param x Horizontal position for NPC to spawn in.
 	 * @param y Vertical position for NPC to spawn in.
@@ -37,6 +40,8 @@ public class NPC {
 	}
 
 	/**
+     * EXTENDED
+     *
 	 * Update if the dialog is shown to player depending on player position
 	 * and if the E key has been pressed recently.
 	 * @param player Player object.
@@ -59,6 +64,7 @@ public class NPC {
     }
 
 	/**
+     * EXTENDED
 	 * Convenience method to be called by the game screen's <code> render()
 	 * </code> method, to draw the NPC's sprite, and it's dialog using a
 	 * SpriteBatch at the current player coordinates.
@@ -103,7 +109,8 @@ public class NPC {
     }
 
 
-    /**
+   
+	/**
 	 * Get the NPC's position in world.
 	 * @return The players x-by-y coordinates as a 2D vector.
 	 */

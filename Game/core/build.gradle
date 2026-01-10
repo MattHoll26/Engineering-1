@@ -1,3 +1,9 @@
+// NEW: jacoco config
+plugins {
+  id 'java'
+  id 'jacoco'
+}
+
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 eclipse.project.name = appName + '-core'
 
@@ -10,6 +16,9 @@ dependencies {
   api "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
   api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
+  // NEW: JUNit 5 support
+  testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.2"
+  testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.8.2"
 
   if(enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
@@ -28,4 +37,23 @@ dependencies {
   testImplementation 'org.mockito:mockito-core:5.3.1'
   testImplementation 'org.mockito:mockito-junit-jupiter:5.3.1'
   testImplementation 'org.mockito:mockito-inline:5.2.0'
+}
+
+// NEW: Generates the JaCoCo report after the tests
+test {
+  finalizedBy jacocoTestReport
+}
+
+// NEW: Enables the JUnit 5 test discovery
+test {
+  useJUnitPlatform()
+}
+
+// NEW: Full JaCoCo coverage report configuration for CI
+jacocoTestReport {
+  dependsOn test
+  reports {
+    xml.required = true
+    html.required = true // NEW: The HTML coverage report for the Continuous Integration
+  }
 }

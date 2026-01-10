@@ -5,7 +5,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-/** <code> Dean </code> is the main enemy of the game, which chases the player's
+/**
+ * EXTENDED
+ *
+ * <code> Dean </code> is the main enemy of the game, which chases the player's
  * character to attempt to attack them, resetting them to the start of the game.
  */
 
@@ -19,6 +22,7 @@ public class Dean {
 	private float speed = 0.7f;
 
 	/**
+     * UNCHANGED
 	 * Constructor for <code> Dean </code>, with a set of coordinates.
 	 * @param x Horizontal position for dean to spawn in.
 	 * @param y Vertical position for dean to spawn in.
@@ -35,6 +39,8 @@ public class Dean {
 	}
 
     /**
+     * NEW
+     *
      * Set the movement speed of the dean.
      * @param newSpeed New speed value for the dean.
      */
@@ -43,6 +49,7 @@ public class Dean {
     }
 
     /**
+     * NEW
      * Return the current movement speed of the dean.
      * @return Current speed value.
      */
@@ -51,6 +58,7 @@ public class Dean {
     }
 
 	/**
+     * EXTENDED
 	 * Update position of dean to get closer to player's new position.
 	 * @param delta Time elapsed since last update.
 	 */
@@ -69,6 +77,7 @@ public class Dean {
 	}
 
 	/**
+     * EXTENDED
 	 * Attempt to move dean diagonally towards player if moving
 	 * in a straight line is not possible.
 	 * @param delta Time elapsed since last update.
@@ -89,6 +98,7 @@ public class Dean {
 	}
 
     /**
+     * EXTENDED JAVADOC
      * Reset the dean to its starting position when the player is caught,
      * or move it to an alternative position to avoid spawn camping.
      *
@@ -107,6 +117,7 @@ public class Dean {
 
 
 	/**
+     * UNCHANGED
 	 * Convenience method to be called by the game screen's <code> render()
 	 * </code> method, to draw the dean using a SpriteBatch at the current
 	 * dean coordinates.
@@ -119,18 +130,21 @@ public class Dean {
 	}
 
 	/**
+     * UNCHANGED
 	 * Return 2D coordinates of dean.
 	 * @return 2D Vector x-by-y position of dean.
 	 */
 	public Vector2 getPosition() {return position; }
 
 	/**
+     * UNCHANGED
 	 * Return rectangle representing collision bounds of dean.
 	 * @return Rectangle collision box.
 	 */
 	public Rectangle getBounds() { return new Rectangle(position.x, position.y, 16,16); }
 
 	/**
+     * UNCHANGED
 	 * Convenience method to be called by application to dispose of textures
 	 * of player's sprites when the application's dispose method is called.
 	  @see com.badlogic.gdx.Screen#dispose Screen.dispose().

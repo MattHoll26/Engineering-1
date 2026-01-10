@@ -1,3 +1,4 @@
+# NEW for Assessment 2: Continuous Integration workflow for the build, tests, coverage and packaging
 name: LibGDX Java CI with Gradle
 
 on:
@@ -32,11 +33,18 @@ jobs:
       - name: Build
         run: ./gradlew build
 
-      - name: Run tests
-        run: ./gradlew test
+      - name: Run Tests with JaCoCo
+        run: ./gradlew test jacocoTestReport
 
       - name: Generate Javadoc
         run: ./gradlew javadoc
 
       - name: Create runnable JAR (lwjgl3)
         run: ./gradlew lwjgl3:dist
+
+      - name: Upload JaCoCo Coverage Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-coverage-report
+          path: Game/core

@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
+ * UNCHANGED
+ *
  * <code> GameOverScreen </code> implements a screen that appears when the timer runs out
  * @see com.badlogic.gdx.Screen Screen
  */
@@ -20,12 +22,11 @@ public class GameOverScreen implements Screen {
     private BitmapFont font;
 
     /**
+     * EXTENDED JAVADOC
      * Constructor for <code>GameOverScreen</code>, using the game creator
      * in <code>MyGame</code> to create the game over screen.
      * @param game Game creator.
      */
-
-
     public GameOverScreen(MyGame game) {
         this.game = game;
 
@@ -38,6 +39,7 @@ public class GameOverScreen implements Screen {
     }
 
     /**
+     * EXTENDed JAVADOC
      * Process input then render thew new frame for the game over screen
      * @param delta Time in seconds since the last frame finished rendering
      * @see com.badlogic.gdx.Screen#render Screen.render().
@@ -62,6 +64,7 @@ public class GameOverScreen implements Screen {
     }
 
     /**
+     * EXTENDED JAVADOC
      * Dispose game over screen assists when the screen is exited
      * @see com.badlogic.gdx.Screen#dispose Screen.dispose()
      */

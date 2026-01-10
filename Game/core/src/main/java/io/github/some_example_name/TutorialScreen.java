@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /**
+ * EXTENDED JAVADOC
  * <code>TutorialScreen</code> implements the tutorial screen shown
  * before the main game begins. It displays a full-screen tutorial image and
  * lets the player continue to the name entry screen.
@@ -33,6 +34,7 @@ public class TutorialScreen implements Screen {
     private final int MENU_HEIGHT = 480;
 
     /**
+     * EXTENDED JAVADOC
      * Constructor for <code>TutorialScreen</code>, creating the rendering
      * objects and loading the tutorial screen image.
      * @param game Game controller used to swap between screens.
@@ -50,6 +52,7 @@ public class TutorialScreen implements Screen {
     }
 
     /**
+     * EXTENDED
      * Render the tutorial screen and process key input for moving to the next screen.
      * @param delta Time in seconds since the last frame finished rendering.
      * @see com.badlogic.gdx.Screen#render Screen.render().
@@ -69,6 +72,7 @@ public class TutorialScreen implements Screen {
 
         //once space bar is pressed load the maze game
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            // MODIFIED: Changed transition to NameScreen instead of GameScreen
             game.setScreen(new NameScreen(game));
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit(); //user can go back to the start menu if they choose
@@ -76,6 +80,7 @@ public class TutorialScreen implements Screen {
     }
 
     /**
+     * EXTENDED JAVADOC
      * Resize the viewport when the window size changes.
      * @param width Current width of the window.
      * @param height Current height of the window.
@@ -87,6 +92,7 @@ public class TutorialScreen implements Screen {
     }
 
     /**
+     * EXTENDED JAVADOC
      * Dispose of assets used by this screen when it is no longer needed.
      * @see com.badlogic.gdx.Screen#dispose Screen.dispose().
      */

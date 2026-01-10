@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /**
+ * NEW
+ *
  * <code> NameScreen </code> implements a name entry screen using a simple
  * on-screen keyboard. The player enters a first name (mandatory) and an optional
  * last name, then starts the game.

@@ -3,13 +3,19 @@ package io.github.some_example_name;
 import com.badlogic.gdx.Game;
 
 /**
+ * EXTENDED
+ *
  * <code> MyGame </code> handles creating and presenting the game from
  * the different screens.
  * @see com.badlogic.gdx.Game Game
  * @see com.badlogic.gdx.Screen Screen
  */
 public class MyGame extends Game {
-    /** Create game, starting at the menu score. */
+    /**
+     * EXTENDED
+     *
+     * Create game, starting at the menu score.
+     */
     private String PlayerFirstName = "";
     private String PlayerLastName = "";
 
@@ -19,6 +25,8 @@ public class MyGame extends Game {
     }
 
     /**
+     * NEW
+     *
      * Set the player's name which is used for leaderboard display.
      * The whitespace is trimmed and null values are handled.
      *
@@ -32,6 +40,8 @@ public class MyGame extends Game {
     }
 
     /**
+     * NEW
+     *
      * Return the player's first name.
      *
      * @return Player's first name
@@ -41,6 +51,8 @@ public class MyGame extends Game {
     }
 
     /**
+     * NEW
+     *
      * Return the player's last name.
      *
      * @return Player's last name
@@ -50,6 +62,8 @@ public class MyGame extends Game {
     }
 
     /**
+     * NEW
+     *
      * Return the player's full name, combining first and last name.
      * If no last name is provided, only the first name is returned.
      *

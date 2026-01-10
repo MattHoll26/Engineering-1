@@ -22,7 +22,10 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.Array;
 
 
-/** <code> GameScreen </code> implements the main gameplay logic and rendering as one class,
+/**
+ * EXTENDED
+ *
+ * <code> GameScreen </code> implements the main gameplay logic and rendering as one class,
  * to process user input, and redraw the frames and update the game asset states as
  * the game progresses.
  *
@@ -88,6 +91,8 @@ public class GameScreen implements Screen {
     private BitmapFont catchCounterFont;
 
     /**
+     * EXTENDED
+     *
      * Constructor for <code> GameScreen </code>, using the game creator
      * in <code> MyGame </code> to create all main game and UI assets.
      * @param game Game creator.
@@ -169,6 +174,8 @@ public class GameScreen implements Screen {
     }
 
     /**
+     * EXTENDED
+     *
      * Update game state from last frame, and render a new frame for the Screen
      * using updated assets.
      * @param delta Time in seconds since last frame finished rendering.
@@ -416,6 +423,8 @@ public class GameScreen implements Screen {
     }
 
     /**
+     * NEW
+     *
      * Calculate the achievements earned by the player based on gameplay state.
      *
      * <p>Achievements are displayed on the win screen and can award positive or
@@ -477,6 +486,8 @@ public class GameScreen implements Screen {
 
 
     /**
+     * EXTENDED
+     *
      * Move the player and interacting with the world and menus every frame when
      * the corresponding keys are pressed:
      * <ul>
@@ -579,6 +590,7 @@ public class GameScreen implements Screen {
     }
 
     /**
+     * EXTENDED JAVADOC
      * Returns if the cell at a given coordinate in the world allows an entity
      * to move onto it. Useful for checking collisions when moving player or another
      * entity.
@@ -609,6 +621,8 @@ public class GameScreen implements Screen {
     }
 
     /**
+     * NEW
+     *
      * Return whether a cell blocks movement for the dean.
      *
      * <p>This is similar to {@link #isCellBlocked(float, float)} but also treats
@@ -639,6 +653,8 @@ public class GameScreen implements Screen {
 
 
     /**
+     * NEW
+     *
      * Checks if the player's future position overlaps with the "Bounds" object layer of the Tiled map.
      * @param x The future x-coordinate of the player.
      * @param y The future y-coordinate of the player.
@@ -669,6 +685,8 @@ public class GameScreen implements Screen {
     }
 
     /**
+     * EXTENDED
+     *
      * Calculate the player's base score for this run.
      *
      * <p>Score is derived from time remaining subtract the penalties from deaths/catches.
@@ -691,6 +709,8 @@ public class GameScreen implements Screen {
     }
 
     /**
+     * NEW
+     *
      * Calculate the total score penalty based on negative events.
      *
      * <p>Penalties:</p>
@@ -711,6 +731,7 @@ public class GameScreen implements Screen {
 
 
     /**
+     * UNCHANGED
      * Resize UI and game map viewports when the window size is changed.
      * @param width Current width of window.
      * @param height Current height of window.
@@ -725,6 +746,7 @@ public class GameScreen implements Screen {
     }
 
     /**
+     * EXTENDED JAVADOC
      * Get the number of times the player is caught by the Dean
      *
      * @return Number of times caught by the dean
@@ -734,6 +756,8 @@ public class GameScreen implements Screen {
     }
 
     /**
+     * EXTENDED
+     *
      * Dispose of all assets and UI elements when game screen is left.
      * For example. when the player wins the game or quits.
      * @see com.badlogic.gdx.Screen#dispose Screen.dispose().
@@ -761,6 +785,8 @@ public class GameScreen implements Screen {
     }
 
     /**
+     * NEW
+     *
      * Freeze all dean enemies by setting their movement speed to zero.
      *
      * <p>Used by the freeze event and potentially other mechanics.</p>
@@ -776,6 +802,8 @@ public class GameScreen implements Screen {
     }
 
     /**
+     * NEW
+     *
      * Restore dean movement speeds after a freeze effect ends.
      */
     public void unfreezeDeans() {
@@ -787,6 +815,8 @@ public class GameScreen implements Screen {
     }
 
     /**
+     * NEW
+     *
      * Spawn a second (extra) dean as a difficulty penalty.
      *
      * <p>This is used by the questionnaire fail outcome.</p>
