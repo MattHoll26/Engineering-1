@@ -23,19 +23,22 @@ public class DrownTest extends TestHelper {
     private TiledMap mockMap;
     private TiledMapTileLayer mockLayer;
     private Player mockPlayer;
+    private com.badlogic.gdx.maps.MapLayers mockLayers;
 
     @BeforeEach
     public void setUp() {
         mockMap = mock(TiledMap.class);
         mockLayer = mock(TiledMapTileLayer.class);
-        MapObjects mapObjects = new MapObjects();
 
+        mockLayers = mock(com.badlogic.gdx.maps.MapLayers.class);
+        MapObjects mapObjects = new MapObjects();
         RectangleMapObject waterObject = new RectangleMapObject(200, 300, 64, 64);
         waterObject.setName("Water");
         mapObjects.add(waterObject);
 
-        when(mockMap.getLayers()).thenReturn(mock(com.badlogic.gdx.maps.MapLayers.class));
-        when(mockMap.getLayers().get("Hazards")).thenReturn(mockLayer);
+        // Set up mock chain for CI
+        when(mockMap.getLayers()).thenReturn(mockLayers);
+        when(mockLayers.get("Hazards")).thenReturn(mockLayer);
         when(mockLayer.getObjects()).thenReturn(mapObjects);
 
         mockPlayer = mock(Player.class);
